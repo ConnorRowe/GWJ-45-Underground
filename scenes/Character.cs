@@ -4,20 +4,27 @@ namespace Underground
 {
     public class Character : KinematicBody2D
     {
-        private const float JumpForce = 200f;
+        private const float JumpForce = 250f;
         private const float GravityAccel = 98f * 8;
-        private const float TerminalVel = 245f;
-        private const float MaxSpeed = 1000f;
-        private const float Acceleration = 600f;
+        private const float TerminalVel = 400f;
+        private const float MaxSpeed = 1600f;
+        private const float Acceleration = 1200f;
         private const float MovementDamping = 10f;
 
         private AnimationPlayer animationPlayer;
+        private AudioStreamPlayer footstepPlayer;
         private Node2D bodyParts;
+        private Node2D torsoBone;
         private float inputDir = 0f;
         private float targetAngle = 0f;
         private Vector2 velocity = Vector2.Zero;
         private Vector2 externalVelocity = Vector2.Zero;
         private float gravity = 0;
+        private bool coyoteJump = true;
+        private float coyoteJumpTime = 0f;
+
+        [Export]
+        public bool Locked { get; set; }
 
         public override void _Ready()
         {
@@ -25,17 +32,24 @@ namespace Underground
 
             animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
             bodyParts = GetNode<Node2D>("BodyParts");
+            torsoBone = GetNode<Node2D>("BodyParts/TorsoBone");
+            footstepPlayer = GetNode<AudioStreamPlayer>("FootstepPlayer");
         }
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
+            if (Locked)
+                return;
 
             bodyParts.Rotation = Mathf.LerpAngle(bodyParts.Rotation, targetAngle, delta * 10f);
+            torsoBone.Rotation = bodyParts.Scale.x > 0 ? -bodyParts.Rotation : bodyParts.Rotation;
         }
 
         public override void _PhysicsProcess(float delta)
         {
+            if (Locked)
+                return;
+
             int inputX = 0;
             if (Input.IsActionPressed("move_left"))
                 inputX -= 1;
@@ -77,6 +91,15 @@ namespace Underground
             else if (gravity > 0)
                 gravity = 0;
 
+            if (Input.IsActionJustPressed("jump") && (isOnFloor || coyoteJump))
+            {
+                // Jump
+                gravity = -JumpForce;
+
+                bodyParts.Rotation = targetAngle = 0;
+                coyoteJump = false;
+            }
+
             MoveAndSlideWithSnap(velocity + externalVelocity + new Vector2(0, gravity), Vector2.Down, Vector2.Up, infiniteInertia: false);
 
             if (velocity.x > 0 && bodyParts.Scale.x < 0)
@@ -84,7 +107,7 @@ namespace Underground
             else if (velocity.x < 0 && bodyParts.Scale.x > 0)
                 bodyParts.Scale = new Vector2(-1, 1);
 
-            if (velocity.LengthSquared() > .1f)
+            if ((velocity + externalVelocity).LengthSquared() > 8f)
             {
                 if (animationPlayer.CurrentAnimation != "Walk")
                     animationPlayer.Play("Walk");
@@ -93,6 +116,31 @@ namespace Underground
             {
                 if (animationPlayer.CurrentAnimation != "Idle")
                     animationPlayer.Play("Idle");
+            }
+
+            if (!isOnFloor && coyoteJumpTime > 0f)
+            {
+                coyoteJumpTime -= delta;
+
+                if (coyoteJumpTime < 0f)
+                {
+                    coyoteJumpTime = 0f;
+                    coyoteJump = false;
+                }
+            }
+
+            if (isOnFloor && !coyoteJump)
+            {
+                coyoteJump = true;
+                coyoteJumpTime = .1f;
+            }
+        }
+
+        private void PlayFootstep()
+        {
+            if (IsOnFloor())
+            {
+                footstepPlayer.Play();
             }
         }
     }

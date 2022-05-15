@@ -1,0 +1,189 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://fonts/ConsFontMono.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/StartLevel.cs" type="Script" id=3]
+[ext_resource path="res://scenes/Shaker.cs" type="Script" id=4]
+[ext_resource path="res://audio/explosion.wav" type="AudioStream" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_top = -2
+extra_spacing_bottom = -2
+font_data = ExtResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 6.5, 86 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 2.5, 19 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 37.75, 1 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 8.375, 8 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Start"
+length = 13.0
+tracks/0/type = "method"
+tracks/0/path = NodePath("Shaker")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 2.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 1000.0 ],
+"method": "Shake"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Character:Locked")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 12.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("ExplosionPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 2.5 )
+}
+
+[node name="StartLevel" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+margin_right = 640.0
+margin_bottom = 360.0
+color = Color( 0.192157, 0.133333, 0.172549, 1 )
+
+[node name="House" type="Label" parent="."]
+visible = false
+margin_left = -67.0
+margin_top = -85.0
+margin_right = 733.0
+margin_bottom = 444.0
+custom_fonts/font = SubResource( 1 )
+text = "
+
+                 '              ''                       \"
+
+   \"\"                      \"                   \"\"                   \"
+
+     /_-_-_-_-_-_-_-_\\    '     /_-_-_-_-_-_-__\\          /_-_-_-_-_-_-_-\\ '
+____/                 \\________/                \\________/                \\____
+   /                   \\      /                  \\      /                  \\
+  /                     \\    /                    \\    /                    \\
+ /                       \\  /                      \\  /                      \\  
+/_________________________\\/________________________\\/________________________\\
+|                          |                         |                         |
+|                          |                 |_|_|   |                         |
+|                          |                 |_|_|   |                         |
+|                          |                         |                         |
+|                          |                         |                         |
+|                          |                         |                         |
+|                          | |_|_|         ___.      |                         |
+|                          | |_|_|         |  |      |                         |
+|__________________________|_______________|  |______|_________________________|
+                                          /  /
+                                         /  /
+                                        /  /
+                                       /  /
+                                      /  /
+                                     /  /
+                                    /  /"
+valign = 2
+
+[node name="Bedroom" type="Label" parent="."]
+margin_left = 66.0
+margin_top = -285.0
+margin_right = 866.0
+margin_bottom = 244.0
+custom_fonts/font = SubResource( 1 )
+text = "_______________________________________________
+|                      ||                      |
+|      /_  _\\          ^                       |
+|      |  |  |                                 |
+|      |_ |_ |                          ____   |
+|      |_ |_ |                          |   |  |
+|    <________>                         |   |  |
+| \\                     |               | :-|  |
+| |_______\\             |_              |   |  |
+|_|________|___b____Qz__|_|____l_ox_p_a_|___|__|"
+valign = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="Bedroom"]
+show_behind_parent = true
+position = Vector2( 17, 512 )
+color = Color( 0.192157, 0.133333, 0.172549, 1 )
+polygon = PoolVector2Array( 0, 0, 67, 0, 71, 6, 71, 62, 0, 61 )
+
+[node name="Character" parent="." instance=ExtResource( 2 )]
+position = Vector2( 100, 242 )
+z_index = -1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 60.5, 176 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 448, 176 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 84.5, 223 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 145.25, 196 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 145.25, 196 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 266.625, 234 )
+shape = SubResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 66, 241, 178, 241, 189, 235, 196, 241, 220, 241, 228, 234, 231, 234, 234, 237, 239, 237, 245, 241, 281, 241, 314, 241, 315, 235, 316, 235, 317, 241, 325, 241, 331, 237, 344, 237, 348, 241, 352, 241, 356, 237, 360, 237, 361, 241, 366, 241, 371, 237, 375, 237, 378, 241, 445, 241, 446, 267, 52, 264 )
+
+[node name="Shaker" type="Node" parent="."]
+script = ExtResource( 4 )
+targetNode2DPath = NodePath("../Camera2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Start"
+anims/Start = SubResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 319, 182 )
+rotating = true
+current = true
+
+[node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
