@@ -25,44 +25,57 @@ namespace Underground
 
         public override void _Ready()
         {
-            target = GetNode<Node2D>(targetNode2DPath);
-
-            if (target is Camera2D c)
-                targetCamera = c;
+            if (targetNode2DPath != null)
+                SetTarget(GetNode(targetNode2DPath));
         }
 
         public override void _Process(float delta)
         {
             base._Process(delta);
 
-            if (trauma > 0)
+            if (target != null || targetCamera != null)
             {
-                trauma = Mathf.Max(trauma - (decay * delta), 0);
-
-                float amount = Mathf.Pow(trauma, 2);
-
-                if (noiseY == int.MaxValue)
+                if (trauma > 0)
                 {
-                    noiseY = 0;
+                    trauma = Mathf.Max(trauma - (decay * delta), 0);
+
+                    float amount = Mathf.Pow(trauma, 2);
+
+                    if (noiseY == int.MaxValue)
+                    {
+                        noiseY = 0;
+                    }
+                    else
+                        noiseY++;
+
+                    target.Rotation = maxRotation * amount * noise.GetNoise2d(noise.Seed, noiseY);
+                    Vector2 offset = new Vector2();
+                    offset.x = maxOffset.x * amount * noise.GetNoise2d(noise.Seed * 2, noiseY);
+                    offset.y = maxOffset.y * amount * noise.GetNoise2d(noise.Seed * 3, noiseY);
+
+                    if (targetCamera != null)
+                        targetCamera.Offset = offset;
+                    else
+                        target.Position = offset;
                 }
-                else
-                    noiseY++;
-
-                target.Rotation = maxRotation * amount * noise.GetNoise2d(noise.Seed, noiseY);
-                Vector2 offset = new Vector2();
-                offset.x = maxOffset.x * amount * noise.GetNoise2d(noise.Seed * 2, noiseY);
-                offset.y = maxOffset.y * amount * noise.GetNoise2d(noise.Seed * 3, noiseY);
-
-                if (targetCamera != null)
-                    targetCamera.Offset = offset;
-                else
-                    target.Position = offset;
             }
         }
 
         public void Shake(float power)
         {
             trauma = Mathf.Min(trauma + power, 1f);
+        }
+
+        public void SetTarget(Node target)
+        {
+            if (target is Camera2D camera2D)
+            {
+                this.target = targetCamera = camera2D;
+            }
+            else if (target is Node2D node2D)
+            {
+                this.target = node2D;
+            }
         }
     }
 }

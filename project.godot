@@ -14,6 +14,10 @@ config/name="GWJ-45-Underground"
 run/main_scene="res://scenes/StartLevel.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalNodes="*res://scenes/GlobalNodes.tscn"
+
 [display]
 
 window/size/width=640

@@ -1,13 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://fonts/ConsFont_v2.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/Normal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/Character.cs" type="Script" id=2]
 [ext_resource path="res://scenes/Shaker.cs" type="Script" id=3]
 [ext_resource path="res://audio/footstep.wav" type="AudioStream" id=4]
 [ext_resource path="res://audio/bump.wav" type="AudioStream" id=5]
-
-[sub_resource type="DynamicFont" id=6]
-font_data = ExtResource( 1 )
+[ext_resource path="res://audio/fallhit.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=5]
 resource_name = "Idle"
@@ -219,7 +217,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -3, -22 ) ]
+"values": [ Vector2( -3, -16 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("BodyParts:position")
@@ -233,6 +231,54 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath(".:AnimLocked")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath(".:InputLocked")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath(".:Drive")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("BodyParts/TorsoBone/HeadBone/Mouth:text")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ")" ]
+}
 
 [sub_resource type="AudioStreamRandomPitch" id=10]
 audio_stream = ExtResource( 4 )
@@ -240,7 +286,7 @@ random_pitch = 1.25
 
 [sub_resource type="Animation" id=7]
 resource_name = "WakeUp"
-length = 13.0
+length = 24.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("BodyParts/TorsoBone/HeadBone/Eyes:text")
 tracks/0/interp = 1
@@ -248,7 +294,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 4, 10, 10.2, 11, 11.1, 11.5, 11.7, 12.1, 12.3 ),
+"times": PoolRealArray( 0, 6, 12, 12.2, 13, 13.1, 13.5, 13.7, 14.1, 14.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "- -", "Q Q", "_ _", "Q Q", "_ _", "0 0", "_ _", "o o", "- -", ". ." ]
@@ -260,7 +306,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 4, 10, 10.2, 11, 11.1, 11.5, 11.7, 12.1, 12.3 ),
+"times": PoolRealArray( 0, 6, 12, 12.2, 13, 13.1, 13.5, 13.7, 14.1, 14.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -7, -16 ), Vector2( -10, -16 ), Vector2( -8, -19 ), Vector2( -10, -16 ), Vector2( -8, -19 ), Vector2( -10, -16 ), Vector2( -8, -19 ), Vector2( -8, -16 ), Vector2( -8, -15 ), Vector2( -6, -18 ) ]
@@ -272,7 +318,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 4, 12.3 ),
+"times": PoolRealArray( 0, 6, 14.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ "“", "||", "“" ]
@@ -284,7 +330,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 4, 11.5, 12.1 ),
+"times": PoolRealArray( 0, 6, 13.5, 14.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "l", "0", "o", "|" ]
@@ -296,7 +342,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 4, 11.5 ),
+"times": PoolRealArray( 0, 6, 13.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0, -11 ), Vector2( 0, -13 ), Vector2( 0, -11 ) ]
@@ -308,7 +354,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 4, 12.3 ),
+"times": PoolRealArray( 0, 6, 14.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -4, -16 ), Vector2( -3, -22 ), Vector2( -4, -16 ) ]
@@ -332,7 +378,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 4 ),
+"times": PoolRealArray( 6 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ 10000.0 ],
@@ -367,14 +413,26 @@ tracks/8/keys = {
 "start_offset": 3600.0,
 "stream": SubResource( 10 )
 } ],
-"times": PoolRealArray( 10, 11, 11.5, 12.1, 12.72 )
+"times": PoolRealArray( 12, 13, 13.5, 14.1, 14.7 )
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath(".:AnimLocked")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.1, 14.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=3]
 resource_name = "Walk"
-length = 1.125
+length = 0.844
 loop = true
-step = 0.125
+step = 0.094
 tracks/0/type = "value"
 tracks/0/path = NodePath("BodyParts/LegL:text")
 tracks/0/interp = 1
@@ -382,7 +440,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1 ),
+"times": PoolRealArray( 0, 0.1875, 0.28125, 0.375, 0.46875, 0.5625, 0.65625, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "_", "/", "¬", "\\
@@ -397,7 +455,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.5, 0.625, 0.75, 0.875, 1 ),
+"times": PoolRealArray( 0, 0.09375, 0.1875, 0.375, 0.46875, 0.5625, 0.65625, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "\\
@@ -410,7 +468,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1 ),
+"times": PoolRealArray( 0, 0.1875, 0.28125, 0.375, 0.46875, 0.5625, 0.65625, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -9, -19 ), Vector2( -9, -13 ), Vector2( -8, -12 ), Vector2( -5, -12 ), Vector2( -6, -12 ), Vector2( -7, -12 ), Vector2( -7, -12 ), Vector2( -11, -12 ) ]
@@ -422,7 +480,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1 ),
+"times": PoolRealArray( 0, 0.09375, 0.1875, 0.28125, 0.375, 0.46875, 0.5625, 0.65625, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 4, -12 ), Vector2( 3, -12 ), Vector2( 2, -12 ), Vector2( 1, -12 ), Vector2( 1, -12 ), Vector2( -2, -12 ), Vector2( -3, -18 ), Vector2( -2, -13 ), Vector2( -2, -12 ) ]
@@ -434,7 +492,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.61, 0.75, 0.875, 1 ),
+"times": PoolRealArray( 0, 0.09375, 0.1875, 0.28125, 0.375, 0.4575, 0.5625, 0.65625, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "J", "J", "j", "j", "J", "J", "j", "j", "j" ]
@@ -446,7 +504,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.61, 0.75, 0.875, 1 ),
+"times": PoolRealArray( 0, 0.09375, 0.1875, 0.28125, 0.375, 0.4575, 0.5625, 0.65625, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "J", "J", "j", "j", "J", "J", "j", "j", "j" ]
@@ -458,7 +516,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"times": PoolRealArray( 0, 0.1875, 0.375, 0.5625 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0, -12 ), Vector2( 0, -13 ), Vector2( 0, -12 ), Vector2( 0, -13 ) ]
@@ -470,7 +528,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.75, 0.875 ),
+"times": PoolRealArray( 0, 0.5625, 0.65625 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ ". .", "` `", ". ." ]
@@ -482,7 +540,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.75, 0.875 ),
+"times": PoolRealArray( 0, 0.5625, 0.65625 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -6, -19 ), Vector2( -6, -10 ), Vector2( -6, -19 ) ]
@@ -494,7 +552,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"times": PoolRealArray( 0, 0.1875, 0.375, 0.5625 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ "''", "“", "''", "“" ]
@@ -506,7 +564,7 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"times": PoolRealArray( 0, 0.1875, 0.375, 0.5625 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -8, -14 ), Vector2( -8, -15 ), Vector2( -8, -14 ), Vector2( -8, -15 ) ]
@@ -518,7 +576,7 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0.125, 0.625 ),
+"times": PoolRealArray( 0.09375, 0.46875 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -535,8 +593,13 @@ height = 18.0
 
 [sub_resource type="StreamTexture" id=8]
 
+[sub_resource type="AudioStreamRandomPitch" id=11]
+audio_stream = ExtResource( 6 )
+
 [node name="Character" type="KinematicBody2D"]
 script = ExtResource( 2 )
+InputLocked = true
+AnimLocked = true
 
 [node name="BodyParts" type="Node2D" parent="."]
 modulate = Color( 0.929412, 0.929412, 0.929412, 1 )
@@ -552,7 +615,7 @@ margin_left = -6.0
 margin_top = -19.0
 margin_right = 24.0
 margin_bottom = -3.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
 text = ". ."
 
 [node name="Head" type="Label" parent="BodyParts/TorsoBone/HeadBone"]
@@ -560,7 +623,7 @@ margin_left = -10.0
 margin_top = -13.0
 margin_right = 11.0
 margin_bottom = 3.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
 text = "(   )"
 
 [node name="Mouth" type="Label" parent="BodyParts/TorsoBone/HeadBone"]
@@ -569,8 +632,8 @@ margin_top = -4.0
 margin_right = 21.0
 margin_bottom = 12.0
 rect_rotation = 90.0
-custom_fonts/font = SubResource( 6 )
-text = "|"
+custom_fonts/font = ExtResource( 1 )
+text = ")"
 
 [node name="Nose" type="Label" parent="BodyParts/TorsoBone/HeadBone"]
 margin_left = 5.0
@@ -578,15 +641,14 @@ margin_top = -7.0
 margin_right = 8.0
 margin_bottom = 9.0
 rect_rotation = 90.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
 text = "'"
 
 [node name="Hair" type="Label" parent="BodyParts/TorsoBone/HeadBone"]
 margin_left = -3.0
-margin_top = -22.0
+margin_top = -16.0
 margin_right = 3.0
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
 text = "“"
 
 [node name="Torso" type="Label" parent="BodyParts/TorsoBone"]
@@ -594,7 +656,7 @@ margin_left = -8.0
 margin_top = -14.0
 margin_right = 22.0
 margin_bottom = 2.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
 text = "[ ]"
 
 [node name="ArmL" type="Label" parent="BodyParts/TorsoBone"]
@@ -603,8 +665,8 @@ margin_top = 3.0
 margin_right = -2.0
 margin_bottom = 19.0
 rect_rotation = 180.0
-custom_fonts/font = SubResource( 6 )
-text = "J"
+custom_fonts/font = ExtResource( 1 )
+text = "|"
 
 [node name="ArmR" type="Label" parent="BodyParts/TorsoBone"]
 margin_left = 7.0
@@ -613,27 +675,27 @@ margin_right = 12.0
 margin_bottom = 19.0
 rect_rotation = 180.0
 rect_scale = Vector2( -1, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "J"
+custom_fonts/font = ExtResource( 1 )
+text = "|"
 
 [node name="LegR" type="Label" parent="BodyParts"]
 margin_top = -12.0
 margin_right = 13.0
 margin_bottom = 23.0
-custom_fonts/font = SubResource( 6 )
-text = "/"
+custom_fonts/font = ExtResource( 1 )
+text = "L"
 
 [node name="LegL" type="Label" parent="BodyParts"]
 margin_left = -6.0
 margin_top = -12.0
 margin_right = 11.0
 margin_bottom = 23.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
 text = "L
 "
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "WakeUp"
+autoplay = "Idle"
 anims/Idle = SubResource( 5 )
 anims/RESET = SubResource( 2 )
 anims/WakeUp = SubResource( 7 )
@@ -657,3 +719,7 @@ decay = 0.168
 [node name="FootstepPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 10 )
 volume_db = -6.4
+
+[node name="FallHitPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 11 )
+volume_db = -0.978

@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://textures/CrumbleFloor.png" type="Texture" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=3]
+max_value = 100.0
+bake_resolution = 50
+_data = [ Vector2( 0, 100 ), 0.0, 0.0, 0, 1, Vector2( 0.0298913, 100 ), 0.0, -361.495, 1, 0, Vector2( 1, 1 ), -102.05, 0.0, 1, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+width = 50
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 0.68
+emission_shape = 2
+emission_box_extents = Vector3( 29, 0, 0 )
+flag_disable_z = true
+gravity = Vector3( 0, 122.5, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping_random = 0.2
+damping_curve = SubResource( 4 )
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[node name="FloorCrumble" type="Particles2D"]
+material = SubResource( 2 )
+emitting = false
+amount = 16
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 1 )
+texture = ExtResource( 1 )

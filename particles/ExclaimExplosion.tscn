@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://textures/exlaim_question.png" type="Texture" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=3]
+min_value = -10.0
+max_value = 10.0
+_data = [ Vector2( 0, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.0353261, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.076087, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.103261, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.157609, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.192935, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.220109, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.277174, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.320652, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.36413, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.396739, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.472826, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.494565, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.55163, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.592391, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.644022, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.692935, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.728261, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.747283, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.785326, -9.59091 ), 0.0, 0.0, 0, 0, Vector2( 0.836957, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.866848, -10 ), 0.0, 0.0, 0, 0, Vector2( 0.904891, 10 ), 0.0, 0.0, 0, 0, Vector2( 0.956522, -10 ), 0.0, 0.0, 0, 0, Vector2( 1, 10 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+width = 100
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 3.64
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 30.15
+flatness = 0.33
+gravity = Vector3( 0, 490, 0 )
+initial_velocity = 381.44
+initial_velocity_random = 0.39
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_random = 1.0
+angle_curve = SubResource( 4 )
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[node name="ExclaimExplosion" type="Particles2D"]
+material = SubResource( 1 )
+emitting = false
+amount = 32
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.91
+process_material = SubResource( 2 )
+texture = ExtResource( 1 )
