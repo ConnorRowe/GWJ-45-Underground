@@ -1,2 +1,6 @@
 /TODO:/
-- Screaming particle effect: aaAAAAAaaAAAAaaa!!!!
+X Screaming particle effect: aaAAAAAaaAAAAaaa!!!!
+X Grappling hook
+* pressure plate / button puzzles like pikuniku maybe?
+* character fall animation
+* grapple angle indicator

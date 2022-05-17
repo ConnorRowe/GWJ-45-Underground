@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://particles/FloorCrumble.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=9]
 [ext_resource path="res://audio/light_switch.wav" type="AudioStream" id=10]
 [ext_resource path="res://audio/whistle.wav" type="AudioStream" id=11]
+[ext_resource path="res://audio/crumble.wav" type="AudioStream" id=12]
+[ext_resource path="res://audio/fallhit.wav" type="AudioStream" id=13]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6.5, 86 )
@@ -153,7 +155,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.1, 17.4 ),
+"times": PoolRealArray( 0, 17.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -237,7 +239,7 @@ tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.01 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "WakeUp" ],
@@ -247,7 +249,7 @@ tracks/13/keys = {
 
 [sub_resource type="Animation" id=15]
 resource_name = "CrumbleFloor"
-length = 3.0
+length = 8.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("../DownstairsScene/CrumblingFloor/CrumbleLabel/Area2D/CollisionShape2D:disabled")
 tracks/0/interp = 1
@@ -267,7 +269,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.4 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ "" ]
@@ -279,10 +281,13 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
-"args": [ 5.0 ],
+"args": [ 0.5 ],
+"method": "Shake"
+}, {
+"args": [ 0.5 ],
 "method": "Shake"
 } ]
 }
@@ -293,7 +298,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.4 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ 10.0 ],
@@ -307,7 +312,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.4 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
@@ -331,7 +336,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.4 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
@@ -346,9 +351,13 @@ tracks/7/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
+"stream": ExtResource( 13 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
 "stream": ExtResource( 11 )
 } ],
-"times": PoolRealArray( 1.4 )
+"times": PoolRealArray( 1.4, 2.1 )
 }
 tracks/8/type = "method"
 tracks/8/path = NodePath("../Character")
@@ -357,11 +366,51 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.4 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ Vector2( 0, -1500 ) ],
 "method": "AddExternalVelocity"
+} ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath("../CrumblePlayer")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../DownstairsScene:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 7, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/11/type = "method"
+tracks/11/path = NodePath("..")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 7.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "res://scenes/TestLevel.tscn" ],
+"method": "SwitchSceneTo"
 } ]
 }
 
@@ -470,6 +519,18 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../Character:AnimLocked")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -750,6 +811,18 @@ tracks/17/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/18/type = "value"
+tracks/18/path = NodePath("../Character:AnimLocked")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 10, 27.5 )
@@ -772,7 +845,7 @@ margin_bottom = 360.0
 color = Color( 0.192157, 0.133333, 0.172549, 1 )
 
 [node name="Character" parent="." instance=ExtResource( 2 )]
-modulate = Color( 0.227451, 0.203922, 0.529412, 0 )
+modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 103, 241 )
 z_index = -1
@@ -785,6 +858,7 @@ margin_left = -379.0
 margin_top = -19.0
 margin_right = 813.0
 margin_bottom = 510.0
+rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 318, 314 )
 custom_colors/font_color = Color( 0.298039, 0.258824, 0.552941, 1 )
 custom_fonts/font = ExtResource( 9 )
@@ -900,7 +974,7 @@ custom_fonts/normal_font = ExtResource( 6 )
 bbcode_enabled = true
 bbcode_text = "[wave amp=30 freq=3]Move with A and D
                          Jump with spacebar or W"
-text = "Move with A and D
+text = "[wave amp=30 freq=3]Move with A and D
                          Jump with spacebar or W"
 
 [node name="ExclaimExplosion" parent="BedroomScene" instance=ExtResource( 8 )]
@@ -914,7 +988,7 @@ position = Vector2( 92, 207 )
 preprocess = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BedroomScene"]
-autoplay = "BedroomStart"
+autoplay = "House"
 anims/BedroomEnd = SubResource( 10 )
 anims/BedroomStart = SubResource( 4 )
 anims/CrumbleFloor = SubResource( 15 )
@@ -964,7 +1038,7 @@ text = "_______________________________________________
 [node name="StaticBody2D" type="StaticBody2D" parent="DownstairsScene"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DownstairsScene/StaticBody2D"]
-polygon = PoolVector2Array( 452, 309, 452, 294, 468, 294, 468, 279, 484, 279, 484, 264, 500, 264, 500, 249, 516, 249, 516, 234, 532, 234, 532, 219, 548, 219, 548, 204, 564, 204, 564, 189, 580, 189, 580, 174, 596, 174, 596, 165, 604, 165, 605, 71, 629, 69, 605, 170, 451, 336, 365, 325, 365, 308, 374, 305, 385, 305, 390, 293, 393, 303, 399, 303, 403, 309, 414, 308, 422, 309, 434, 309, 438, 308, 443, 309 )
+polygon = PoolVector2Array( 452, 309, 452, 294, 468, 294, 468, 279, 484, 279, 484, 264, 500, 264, 500, 249, 516, 249, 516, 234, 532, 234, 532, 219, 548, 219, 548, 204, 564, 204, 564, 189, 580, 189, 580, 174, 596, 174, 596, 165, 604, 165, 605, 129, 225, 129, 629, 69, 605, 170, 451, 336, 365, 325, 365, 308, 374, 305, 385, 305, 390, 293, 393, 303, 399, 303, 403, 309, 414, 308, 422, 309, 434, 309, 438, 308, 443, 309 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownstairsScene/StaticBody2D"]
 position = Vector2( 292, 266.5 )
@@ -1005,3 +1079,7 @@ targetNode2DPath = NodePath("../..")
 maxRotation = 0.05
 maxOffset = Vector2( 5, 2 )
 decay = 0.438
+
+[node name="CrumblePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+bus = "SFX_Reverb"

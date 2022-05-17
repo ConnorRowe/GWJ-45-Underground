@@ -18,5 +18,11 @@ namespace Underground
             if (body is Character)
                 animationPlayer.Play(animName);
         }
+
+        private void SwitchSceneTo(string packedScenePath)
+        {
+            GetTree().ChangeScene(packedScenePath);
+            QueueFree();
+        }
     }
 }

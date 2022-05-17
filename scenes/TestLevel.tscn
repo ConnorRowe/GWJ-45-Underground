@@ -1,231 +1,68 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/BaseLevel.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Normal.tres" type="DynamicFont" id=2]
 [ext_resource path="res://tileset/tileset_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/SpeechArea2D.cs" type="Script" id=5]
 
-[sub_resource type="Shader" id=1]
-code = "// NOTE: Shader automatically converted from Godot Engine 3.4.4.stable.mono's ParticlesMaterial.
-
-shader_type particles;
-uniform vec3 direction;
-uniform float spread;
-uniform float flatness;
-uniform float initial_linear_velocity;
-uniform float initial_angle;
-uniform float angular_velocity;
-uniform float orbit_velocity;
-uniform float linear_accel;
-uniform float radial_accel;
-uniform float tangent_accel;
-uniform float damping;
-uniform float scale;
-uniform float hue_variation;
-uniform float anim_speed;
-uniform float anim_offset;
-uniform float initial_linear_velocity_random;
-uniform float initial_angle_random;
-uniform float angular_velocity_random;
-uniform float orbit_velocity_random;
-uniform float linear_accel_random;
-uniform float radial_accel_random;
-uniform float tangent_accel_random;
-uniform float damping_random;
-uniform float scale_random;
-uniform float hue_variation_random;
-uniform float anim_speed_random;
-uniform float anim_offset_random;
-uniform float lifetime_randomness;
-uniform vec4 color_value : hint_color;
-uniform int trail_divisor;
-uniform vec3 gravity;
-
-
-float rand_from_seed(inout uint seed) {
-	int k;
-	int s = int(seed);
-	if (s == 0)
-	s = 305420679;
-	k = s / 127773;
-	s = 16807 * (s - k * 127773) - 2836 * k;
-	if (s < 0)
-		s += 2147483647;
-	seed = uint(s);
-	return float(seed % uint(65536)) / 65535.0;
+[sub_resource type="Animation" id=3]
+resource_name = "FadeIn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Character")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_physics_process"
+}, {
+"args": [ true ],
+"method": "set_physics_process"
+} ]
 }
 
-float rand_from_seed_m1_p1(inout uint seed) {
-	return rand_from_seed(seed) * 2.0 - 1.0;
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-uint hash(uint x) {
-	x = ((x >> uint(16)) ^ x) * uint(73244475);
-	x = ((x >> uint(16)) ^ x) * uint(73244475);
-	x = (x >> uint(16)) ^ x;
-	return x;
-}
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 20, 16.5 )
 
-void vertex() {
-	uint base_number = NUMBER / uint(trail_divisor);
-	uint alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
-	float angle_rand = rand_from_seed(alt_seed);
-	float scale_rand = rand_from_seed(alt_seed);
-	float hue_rot_rand = rand_from_seed(alt_seed);
-	float anim_offset_rand = rand_from_seed(alt_seed);
-	float pi = 3.14159;
-	float degree_to_rad = pi / 180.0;
-
-	bool restart = false;
-	float tv = 0.0;
-	if (CUSTOM.y > CUSTOM.w) {
-		restart = true;
-		tv = 1.0;
-	}
-
-	if (RESTART || restart) {
-		uint alt_restart_seed = hash(base_number + uint(301184) + RANDOM_SEED);
-		float tex_linear_velocity = 0.0;
-		float tex_angle = 0.0;
-		float tex_anim_offset = 0.0;
-		float spread_rad = spread * degree_to_rad;
-		{
-			float angle1_rad = rand_from_seed_m1_p1(alt_restart_seed) * spread_rad;
-			angle1_rad += direction.x != 0.0 ? atan(direction.y, direction.x) : sign(direction.y) * (pi / 2.0);
-			vec3 rot = vec3(cos(angle1_rad), sin(angle1_rad), 0.0);
-			VELOCITY = rot * initial_linear_velocity * mix(1.0, rand_from_seed(alt_restart_seed), initial_linear_velocity_random);
-		}
-		float base_angle = (initial_angle + tex_angle) * mix(1.0, angle_rand, initial_angle_random);
-		CUSTOM.x = base_angle * degree_to_rad;
-		CUSTOM.y = 0.0;
-		CUSTOM.w = (1.0 - lifetime_randomness * rand_from_seed(alt_restart_seed));
-		CUSTOM.z = (anim_offset + tex_anim_offset) * mix(1.0, anim_offset_rand, anim_offset_random);
-		VELOCITY = (EMISSION_TRANSFORM * vec4(VELOCITY, 0.0)).xyz;
-		TRANSFORM = EMISSION_TRANSFORM * TRANSFORM;
-		VELOCITY.z = 0.0;
-		TRANSFORM[3].z = 0.0;
-	} else {
-		CUSTOM.y += DELTA / LIFETIME;
-		tv = CUSTOM.y / CUSTOM.w;
-		float tex_linear_velocity = 0.0;
-		float tex_orbit_velocity = 0.0;
-		float tex_angular_velocity = 0.0;
-		float tex_linear_accel = 0.0;
-		float tex_radial_accel = 0.0;
-		float tex_tangent_accel = 0.0;
-		float tex_damping = 0.0;
-		float tex_angle = 0.0;
-		float tex_anim_speed = 0.0;
-		float tex_anim_offset = 0.0;
-		vec3 force = gravity;
-		vec3 pos = TRANSFORM[3].xyz;
-		pos.z = 0.0;
-		// apply linear acceleration
-		force += length(VELOCITY) > 0.0 ? normalize(VELOCITY) * (linear_accel + tex_linear_accel) * mix(1.0, rand_from_seed(alt_seed), linear_accel_random) : vec3(0.0);
-		// apply radial acceleration
-		vec3 org = EMISSION_TRANSFORM[3].xyz;
-		vec3 diff = pos - org;
-		force += length(diff) > 0.0 ? normalize(diff) * (radial_accel + tex_radial_accel) * mix(1.0, rand_from_seed(alt_seed), radial_accel_random) : vec3(0.0);
-		// apply tangential acceleration;
-		force += length(diff.yx) > 0.0 ? vec3(normalize(diff.yx * vec2(-1.0, 1.0)), 0.0) * ((tangent_accel + tex_tangent_accel) * mix(1.0, rand_from_seed(alt_seed), tangent_accel_random)) : vec3(0.0);
-		// apply attractor forces
-		VELOCITY += force * DELTA;
-		// orbit velocity
-		float orbit_amount = (orbit_velocity + tex_orbit_velocity) * mix(1.0, rand_from_seed(alt_seed), orbit_velocity_random);
-		if (orbit_amount != 0.0) {
-		     float ang = orbit_amount * DELTA * pi * 2.0;
-		     mat2 rot = mat2(vec2(cos(ang), -sin(ang)), vec2(sin(ang), cos(ang)));
-		     TRANSFORM[3].xy -= diff.xy;
-		     TRANSFORM[3].xy += rot * diff.xy;
-		}
-		if (damping + tex_damping > 0.0) {
-			float v = length(VELOCITY);
-			float damp = (damping + tex_damping) * mix(1.0, rand_from_seed(alt_seed), damping_random);
-			v -= damp * DELTA;
-			if (v < 0.0) {
-				VELOCITY = vec3(0.0);
-			} else {
-				VELOCITY = normalize(VELOCITY) * v;
-			}
-		}
-		float base_angle = (initial_angle + tex_angle) * mix(1.0, angle_rand, initial_angle_random);
-		base_angle += CUSTOM.y * LIFETIME * (angular_velocity + tex_angular_velocity) * mix(1.0, rand_from_seed(alt_seed) * 2.0 - 1.0, angular_velocity_random);
-		CUSTOM.x = base_angle * degree_to_rad;
-		CUSTOM.z = (anim_offset + tex_anim_offset) * mix(1.0, anim_offset_rand, anim_offset_random) + CUSTOM.y * (anim_speed + tex_anim_speed) * mix(1.0, rand_from_seed(alt_seed), anim_speed_random);
-	}
-	float tex_scale = 1.0;
-	float tex_hue_variation = 0.0;
-	float hue_rot_angle = (hue_variation + tex_hue_variation) * pi * 2.0 * mix(1.0, hue_rot_rand * 2.0 - 1.0, hue_variation_random);
-	float hue_rot_c = cos(hue_rot_angle);
-	float hue_rot_s = sin(hue_rot_angle);
-	mat4 hue_rot_mat = mat4(vec4(0.299, 0.587, 0.114, 0.0),
-			vec4(0.299, 0.587, 0.114, 0.0),
-			vec4(0.299, 0.587, 0.114, 0.0),
-			vec4(0.000, 0.000, 0.000, 1.0)) +
-		mat4(vec4(0.701, -0.587, -0.114, 0.0),
-			vec4(-0.299, 0.413, -0.114, 0.0),
-			vec4(-0.300, -0.588, 0.886, 0.0),
-			vec4(0.000, 0.000, 0.000, 0.0)) * hue_rot_c +
-		mat4(vec4(0.168, 0.330, -0.497, 0.0),
-			vec4(-0.328, 0.035,  0.292, 0.0),
-			vec4(1.250, -1.050, -0.203, 0.0),
-			vec4(0.000, 0.000, 0.000, 0.0)) * hue_rot_s;
-	COLOR = hue_rot_mat * color_value;
-
-	TRANSFORM[0] = vec4(cos(CUSTOM.x), -sin(CUSTOM.x), 0.0, 0.0);
-	TRANSFORM[1] = vec4(sin(CUSTOM.x), cos(CUSTOM.x), 0.0, 0.0);
-	TRANSFORM[2] = vec4(0.0, 0.0, 1.0, 0.0);
-	float base_scale = tex_scale * mix(scale, 1.0, scale_random * scale_rand);
-	if (base_scale < 0.000001) {
-		base_scale = 0.000001;
-	}
-	TRANSFORM[0].xyz *= base_scale;
-	TRANSFORM[1].xyz *= base_scale;
-	TRANSFORM[2].xyz *= base_scale;
-	VELOCITY.z = 0.0;
-	TRANSFORM[3].z = 0.0;
-	if (CUSTOM.y > CUSTOM.w) {		ACTIVE = false;
-	}
-}
-
-"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/direction = Vector3( 1, 0, 0 )
-shader_param/spread = 45.0
-shader_param/flatness = 0.0
-shader_param/initial_linear_velocity = 0.0
-shader_param/initial_angle = 0.0
-shader_param/angular_velocity = 0.0
-shader_param/orbit_velocity = 0.0
-shader_param/linear_accel = 0.0
-shader_param/radial_accel = 0.0
-shader_param/tangent_accel = 0.0
-shader_param/damping = 0.0
-shader_param/scale = 1.0
-shader_param/hue_variation = 0.0
-shader_param/anim_speed = 0.0
-shader_param/anim_offset = 0.0
-shader_param/initial_linear_velocity_random = 0.0
-shader_param/initial_angle_random = 0.0
-shader_param/angular_velocity_random = 0.0
-shader_param/orbit_velocity_random = 0.0
-shader_param/linear_accel_random = 0.0
-shader_param/radial_accel_random = 0.0
-shader_param/tangent_accel_random = 0.0
-shader_param/damping_random = 0.0
-shader_param/scale_random = 0.0
-shader_param/hue_variation_random = 0.0
-shader_param/anim_speed_random = 0.0
-shader_param/anim_offset_random = 0.0
-shader_param/lifetime_randomness = 0.0
-shader_param/color_value = Color( 1, 1, 1, 1 )
-shader_param/trail_divisor = 1
-shader_param/gravity = Vector3( 0, 98, 0 )
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 15.5, 106.5 )
 
 [node name="TestLevel" type="Node2D"]
 script = ExtResource( 1 )
+InitialColour = Color( 0.701961, 0.854902, 0.639216, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 640.0
@@ -233,7 +70,9 @@ margin_bottom = 360.0
 color = Color( 0.192157, 0.133333, 0.172549, 1 )
 
 [node name="Character" parent="." instance=ExtResource( 4 )]
-position = Vector2( 140, 213 )
+position = Vector2( 62, -3 )
+InputLocked = false
+AnimLocked = false
 
 [node name="Camera2D" type="Camera2D" parent="Character"]
 current = true
@@ -243,21 +82,51 @@ limit_top = 0
 limit_right = 640
 limit_bottom = 360
 
-[node name="Label" type="Label" parent="."]
-margin_left = 237.0
-margin_top = 17.0
-margin_right = 243.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 2 )
-text = "o"
-
 [node name="TileMap" type="TileMap" parent="."]
 modulate = Color( 0.929412, 0.929412, 0.929412, 1 )
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 20, 20 )
 cell_custom_transform = Transform2D( 20, 0, 0, 20, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 0, 0, 4, 1, 0, 196609, 2, 0, 196609, 3, 0, 196609, 4, 0, 196609, 5, 0, 196609, 6, 0, 196609, 7, 0, 196609, 8, 0, 196609, 9, 0, 196609, 10, 0, 196609, 11, 0, 196609, 12, 0, 196609, 13, 0, 196609, 14, 0, 196609, 15, 0, 196609, 16, 0, 196609, 17, 0, 196609, 18, 0, 196609, 19, 0, 196609, 20, 0, 196609, 21, 0, 196609, 22, 0, 196609, 23, 0, 196609, 24, 0, 196609, 25, 0, 196609, 26, 0, 196609, 27, 0, 196609, 28, 0, 196609, 29, 0, 196609, 30, 0, 6, 31, 0, 2, 65536, 0, 65539, 65566, 0, 65536, 65567, 0, 65538, 131072, 0, 65539, 131102, 0, 65536, 131103, 0, 65538, 196608, 0, 65539, 196638, 0, 131072, 196639, 0, 65543, 262144, 0, 65539, 262175, 0, 65539, 327680, 0, 65539, 327711, 0, 65539, 393216, 0, 65539, 393233, 0, 3, 393247, 0, 65539, 458752, 0, 65539, 458769, 0, 65539, 458782, 0, 0, 458783, 0, 131079, 524288, 0, 65539, 524304, 0, 0, 524305, 0, 131079, 524318, 0, 65536, 524319, 0, 65538, 589824, 0, 65539, 589839, 0, 0, 589840, 0, 131078, 589841, 0, 65538, 589843, 0, 3, 589854, 0, 65536, 589855, 0, 65538, 655360, 0, 131076, 655361, 0, 1, 655362, 0, 2, 655375, 0, 65536, 655376, 0, 65537, 655377, 0, 131077, 655378, 0, 5, 655379, 0, 196615, 655390, 0, 65536, 655391, 0, 65538, 720896, 0, 65536, 720897, 0, 65537, 720898, 0, 131077, 720899, 0, 1, 720900, 0, 1, 720901, 0, 2, 720903, 0, 0, 720904, 0, 2, 720906, 0, 196608, 720907, 0, 8, 720908, 0, 196610, 720911, 0, 65536, 720912, 0, 65537, 720913, 0, 65541, 720914, 0, 131074, 720926, 0, 65536, 720927, 0, 65538, 786432, 0, 65536, 786433, 0, 65537, 786434, 0, 65537, 786435, 0, 65537, 786436, 0, 65537, 786437, 0, 131077, 786438, 0, 1, 786439, 0, 131078, 786440, 0, 65538, 786443, 0, 65539, 786447, 0, 65536, 786448, 0, 65537, 786449, 0, 65538, 786453, 0, 0, 786454, 0, 2, 786457, 0, 0, 786458, 0, 2, 786462, 0, 65536, 786463, 0, 65538, 851968, 0, 65536, 851969, 0, 65537, 851970, 0, 65537, 851971, 0, 65537, 851972, 0, 65537, 851973, 0, 65537, 851974, 0, 65537, 851975, 0, 65537, 851976, 0, 131077, 851977, 0, 1, 851978, 0, 1, 851979, 0, 131080, 851980, 0, 1, 851981, 0, 1, 851982, 0, 1, 851983, 0, 131078, 851984, 0, 65541, 851985, 0, 131074, 851989, 0, 65536, 851990, 0, 65538, 851993, 0, 65536, 851994, 0, 65538, 851998, 0, 65536, 851999, 0, 65538, 917504, 0, 65536, 917505, 0, 65537, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65537, 917514, 0, 65537, 917515, 0, 65537, 917516, 0, 65537, 917517, 0, 65537, 917518, 0, 65537, 917519, 0, 65541, 917520, 0, 131074, 917525, 0, 65536, 917526, 0, 262149, 917527, 0, 196609, 917528, 0, 196609, 917529, 0, 262150, 917530, 0, 65538, 917534, 0, 131072, 917535, 0, 65543, 983040, 0, 65536, 983041, 0, 65537, 983042, 0, 65537, 983043, 0, 65537, 983044, 0, 65537, 983045, 0, 65537, 983046, 0, 65537, 983047, 0, 65537, 983048, 0, 65537, 983049, 0, 65537, 983050, 0, 65537, 983051, 0, 65537, 983052, 0, 65537, 983053, 0, 65537, 983054, 0, 65537, 983055, 0, 65538, 983061, 0, 65536, 983062, 0, 65538, 983065, 0, 65536, 983066, 0, 65538, 983071, 0, 65539, 1048576, 0, 65536, 1048577, 0, 65537, 1048578, 0, 65537, 1048579, 0, 65537, 1048580, 0, 65537, 1048581, 0, 65537, 1048582, 0, 65537, 1048583, 0, 65537, 1048584, 0, 65537, 1048585, 0, 65537, 1048586, 0, 65537, 1048587, 0, 65537, 1048588, 0, 65537, 1048589, 0, 65537, 1048590, 0, 65537, 1048591, 0, 131077, 1048592, 0, 1, 1048593, 0, 1, 1048594, 0, 1, 1048595, 0, 1, 1048596, 0, 1, 1048597, 0, 131078, 1048598, 0, 131077, 1048599, 0, 1, 1048600, 0, 1, 1048601, 0, 131078, 1048602, 0, 131077, 1048603, 0, 1, 1048604, 0, 2, 1048607, 0, 65539, 1114112, 0, 131072, 1114113, 0, 131073, 1114114, 0, 131073, 1114115, 0, 131073, 1114116, 0, 131073, 1114117, 0, 131073, 1114118, 0, 131073, 1114119, 0, 131073, 1114120, 0, 131073, 1114121, 0, 131073, 1114122, 0, 131073, 1114123, 0, 131073, 1114124, 0, 131073, 1114125, 0, 131073, 1114126, 0, 131073, 1114127, 0, 131073, 1114128, 0, 131073, 1114129, 0, 131073, 1114130, 0, 131073, 1114131, 0, 131073, 1114132, 0, 131073, 1114133, 0, 131073, 1114134, 0, 131073, 1114135, 0, 131073, 1114136, 0, 131073, 1114137, 0, 131073, 1114138, 0, 131073, 1114139, 0, 131073, 1114140, 0, 196613, 1114141, 0, 196609, 1114142, 0, 196609, 1114143, 0, 196615 )
+tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609, -196604, 0, 7, -131071, 0, 65539, -131068, 0, 65539, -65535, 0, 65539, -65532, 0, 65539, 0, 0, 4, 1, 0, 196615, 4, 0, 196612, 5, 0, 196609, 6, 0, 196609, 7, 0, 196609, 8, 0, 196609, 9, 0, 196609, 10, 0, 196609, 11, 0, 196609, 12, 0, 196609, 13, 0, 196609, 14, 0, 196609, 15, 0, 196609, 16, 0, 196609, 17, 0, 196609, 18, 0, 196609, 19, 0, 196609, 20, 0, 196609, 21, 0, 196609, 22, 0, 196609, 23, 0, 196609, 24, 0, 196609, 25, 0, 196609, 26, 0, 196609, 27, 0, 196609, 28, 0, 196609, 29, 0, 196609, 30, 0, 6, 31, 0, 2, 65536, 0, 65539, 65566, 0, 65536, 65567, 0, 65538, 131072, 0, 65539, 131102, 0, 65536, 131103, 0, 65538, 196608, 0, 65539, 196638, 0, 131072, 196639, 0, 65543, 262144, 0, 65539, 262175, 0, 65539, 327680, 0, 65539, 327711, 0, 65539, 393216, 0, 65539, 393233, 0, 3, 393247, 0, 65539, 458752, 0, 65539, 458769, 0, 65539, 458782, 0, 0, 458783, 0, 131079, 524288, 0, 65539, 524304, 0, 0, 524305, 0, 131079, 524318, 0, 65536, 524319, 0, 65538, 589824, 0, 65539, 589839, 0, 0, 589840, 0, 131078, 589841, 0, 65538, 589843, 0, 3, 589854, 0, 65536, 589855, 0, 65538, 655360, 0, 65539, 655365, 0, 3, 655375, 0, 65536, 655376, 0, 65537, 655377, 0, 131077, 655378, 0, 5, 655379, 0, 196615, 655390, 0, 65536, 655391, 0, 65538, 720896, 0, 131076, 720897, 0, 2, 720900, 0, 0, 720901, 0, 131079, 720903, 0, 0, 720904, 0, 2, 720906, 0, 196608, 720907, 0, 8, 720908, 0, 196610, 720911, 0, 65536, 720912, 0, 65537, 720913, 0, 65541, 720914, 0, 131074, 720926, 0, 65536, 720927, 0, 65538, 786432, 0, 65536, 786433, 0, 131077, 786434, 0, 1, 786435, 0, 1, 786436, 0, 131078, 786437, 0, 131077, 786438, 0, 1, 786439, 0, 131078, 786440, 0, 65538, 786443, 0, 65539, 786447, 0, 65536, 786448, 0, 65537, 786449, 0, 65538, 786453, 0, 0, 786454, 0, 2, 786457, 0, 0, 786458, 0, 2, 786462, 0, 65536, 786463, 0, 65538, 851968, 0, 65536, 851969, 0, 65537, 851970, 0, 65537, 851971, 0, 65537, 851972, 0, 65537, 851973, 0, 65537, 851974, 0, 65537, 851975, 0, 65537, 851976, 0, 131077, 851977, 0, 1, 851978, 0, 1, 851979, 0, 131080, 851980, 0, 1, 851981, 0, 1, 851982, 0, 1, 851983, 0, 131078, 851984, 0, 65541, 851985, 0, 131074, 851989, 0, 65536, 851990, 0, 65538, 851993, 0, 65536, 851994, 0, 65538, 851998, 0, 65536, 851999, 0, 65538, 917504, 0, 65536, 917505, 0, 65537, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65537, 917514, 0, 65537, 917515, 0, 65537, 917516, 0, 65537, 917517, 0, 65537, 917518, 0, 65537, 917519, 0, 65541, 917520, 0, 131074, 917525, 0, 65536, 917526, 0, 262149, 917527, 0, 196609, 917528, 0, 196609, 917529, 0, 262150, 917530, 0, 65538, 917534, 0, 131072, 917535, 0, 65543, 983040, 0, 65536, 983041, 0, 65537, 983042, 0, 65537, 983043, 0, 65537, 983044, 0, 65537, 983045, 0, 65537, 983046, 0, 65537, 983047, 0, 65537, 983048, 0, 65537, 983049, 0, 65537, 983050, 0, 65537, 983051, 0, 65537, 983052, 0, 65537, 983053, 0, 65537, 983054, 0, 65537, 983055, 0, 65538, 983061, 0, 65536, 983062, 0, 65538, 983065, 0, 65536, 983066, 0, 65538, 983071, 0, 65539, 1048576, 0, 65536, 1048577, 0, 65537, 1048578, 0, 65537, 1048579, 0, 65537, 1048580, 0, 65537, 1048581, 0, 65537, 1048582, 0, 65537, 1048583, 0, 65537, 1048584, 0, 65537, 1048585, 0, 65537, 1048586, 0, 65537, 1048587, 0, 65537, 1048588, 0, 65537, 1048589, 0, 65537, 1048590, 0, 65537, 1048591, 0, 131077, 1048592, 0, 1, 1048593, 0, 1, 1048594, 0, 1, 1048595, 0, 1, 1048596, 0, 1, 1048597, 0, 131078, 1048598, 0, 131077, 1048599, 0, 1, 1048600, 0, 1, 1048601, 0, 131078, 1048602, 0, 131077, 1048603, 0, 1, 1048604, 0, 2, 1048607, 0, 65539, 1114112, 0, 131072, 1114113, 0, 131073, 1114114, 0, 131073, 1114115, 0, 131073, 1114116, 0, 131073, 1114117, 0, 131073, 1114118, 0, 131073, 1114119, 0, 131073, 1114120, 0, 131073, 1114121, 0, 131073, 1114122, 0, 131073, 1114123, 0, 131073, 1114124, 0, 131073, 1114125, 0, 131073, 1114126, 0, 131073, 1114127, 0, 131073, 1114128, 0, 131073, 1114129, 0, 131073, 1114130, 0, 131073, 1114131, 0, 131073, 1114132, 0, 131073, 1114133, 0, 131073, 1114134, 0, 131073, 1114135, 0, 131073, 1114136, 0, 131073, 1114137, 0, 131073, 1114138, 0, 131073, 1114139, 0, 131073, 1114140, 0, 196613, 1114141, 0, 196609, 1114142, 0, 196609, 1114143, 0, 196615 )
 
-[node name="Particles2D" type="Particles2D" parent="."]
-process_material = SubResource( 2 )
+[node name="Overlay" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 360.0
+mouse_filter = 2
+color = Color( 0.192157, 0.133333, 0.172549, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "FadeIn"
+anims/FadeIn = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+
+[node name="SpeechBox" type="RichTextLabel" parent="."]
+margin_left = 9.0
+margin_top = 266.0
+margin_right = 315.0
+margin_bottom = 354.0
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+visible_characters = 0
+
+[node name="SpeechTriggers" type="Node" parent="."]
+
+[node name="Area2D2" type="Area2D" parent="SpeechTriggers"]
+position = Vector2( 60, 224 )
+monitorable = false
+script = ExtResource( 5 )
+Speech = "What is this place..?"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeechTriggers/Area2D2"]
+shape = SubResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="SpeechTriggers"]
+position = Vector2( 153, 210 )
+monitorable = false
+script = ExtResource( 5 )
+Speech = "Huh.. how could this giant hole open up under here?"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeechTriggers/Area2D"]
+position = Vector2( 5.5, -96.5 )
+shape = SubResource( 5 )

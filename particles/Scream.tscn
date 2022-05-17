@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://textures/scream_letters.png" type="Texture" id=1]
+[ext_resource path="res://shader/Scream.particle.shader" type="Shader" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 2 )
+shader_param/color_value = Color( 1, 1, 1, 1 )
+shader_param/current_letter = 5
+
+[node name="Scream" type="Particles2D"]
+material = SubResource( 1 )
+emitting = false
+amount = 6
+local_coords = false
+process_material = SubResource( 3 )
+texture = ExtResource( 1 )
