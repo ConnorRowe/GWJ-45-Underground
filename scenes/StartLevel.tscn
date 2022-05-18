@@ -9,7 +9,7 @@
 [ext_resource path="res://particles/SleepyZs.tscn" type="PackedScene" id=7]
 [ext_resource path="res://particles/ExclaimExplosion.tscn" type="PackedScene" id=8]
 [ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=9]
-[ext_resource path="res://audio/light_switch.wav" type="AudioStream" id=10]
+[ext_resource path="res://audio/switch_flick.wav" type="AudioStream" id=10]
 [ext_resource path="res://audio/whistle.wav" type="AudioStream" id=11]
 [ext_resource path="res://audio/crumble.wav" type="AudioStream" id=12]
 [ext_resource path="res://audio/fallhit.wav" type="AudioStream" id=13]
@@ -845,10 +845,11 @@ margin_bottom = 360.0
 color = Color( 0.192157, 0.133333, 0.172549, 1 )
 
 [node name="Character" parent="." instance=ExtResource( 2 )]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 0.227451, 0.203922, 0.529412, 1 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 103, 241 )
 z_index = -1
+HasHook = false
 
 [node name="HouseScene" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -963,6 +964,7 @@ targetNode2DPath = NodePath("../../Camera2D")
 
 [node name="ExplosionPlayer" type="AudioStreamPlayer" parent="BedroomScene"]
 stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="ControlsInfo" type="RichTextLabel" parent="BedroomScene"]
 margin_left = 120.0

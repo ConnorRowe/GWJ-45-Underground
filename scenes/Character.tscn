@@ -766,3 +766,7 @@ texture = ExtResource( 9 )
 offset = Vector2( 0, -6.5 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1, 13 )
+
+[node name="HookDirDisplay" type="Sprite" parent="."]
+position = Vector2( 0, -17 )
+texture = ExtResource( 8 )

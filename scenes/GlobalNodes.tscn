@@ -1,12 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/GlobalNodes.cs" type="Script" id=1]
 [ext_resource path="res://scenes/Shaker.cs" type="Script" id=2]
 [ext_resource path="res://audio/click.wav" type="AudioStream" id=3]
+[ext_resource path="res://audio/boing.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/switch_flick.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/pop.wav" type="AudioStream" id=6]
 
 [sub_resource type="AudioStreamRandomPitch" id=1]
 audio_stream = ExtResource( 3 )
 random_pitch = 1.3
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+audio_stream = ExtResource( 4 )
+random_pitch = 1.2
+
+[sub_resource type="AudioStreamRandomPitch" id=3]
+audio_stream = ExtResource( 5 )
+random_pitch = 1.3
+
+[sub_resource type="AudioStreamRandomPitch" id=4]
+audio_stream = ExtResource( 6 )
+random_pitch = 1.2
 
 [node name="GlobalNodes" type="Node"]
 script = ExtResource( 1 )
@@ -16,4 +31,20 @@ script = ExtResource( 2 )
 
 [node name="UIClick" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 1 )
+volume_db = 1.479
+bus = "SFX"
+
+[node name="Boing" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 2 )
+volume_db = -12.359
+bus = "SFX"
+
+[node name="SwitchClick" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 3 )
+volume_db = 1.479
+bus = "SFX"
+
+[node name="Pop" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 4 )
+volume_db = -3.943
 bus = "SFX"

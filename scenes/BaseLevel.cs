@@ -11,13 +11,13 @@ namespace Underground
         private float currentCharTime = 0f;
 
         [Export]
-        public Color InitialColour { get; set; } = new Color(1f,1f,1f);
+        public Color InitialColour { get; set; } = new Color(1f, 1f, 1f);
 
         public override void _Ready()
         {
             tween = new Tween();
             AddChild(tween);
-            speechBox = GetNode<RichTextLabel>("SpeechBox");
+            speechBox = GetNode<RichTextLabel>("Overlay/SpeechBox");
 
             foreach (Node child in GetNode("SpeechTriggers").GetChildren())
             {
@@ -41,7 +41,7 @@ namespace Underground
                     currentCharTime -= CharTime;
 
                     speechBox.VisibleCharacters++;
-                    GlobalNodes.UIClick();
+                    GlobalNodes.Pop();
                 }
             }
         }
@@ -72,6 +72,8 @@ namespace Underground
             GetNode<Character>("Character").Modulate = colour;
             GetNode<TileMap>("TileMap").Modulate = colour;
             speechBox.Modulate = colour;
+            GetNode<Node2D>("SpeechTriggers").Modulate = colour;
+            GetNode<Node2D>("OtherStuff").Modulate = colour;
         }
     }
 }

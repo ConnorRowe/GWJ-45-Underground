@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/switch_flick.wav-e8fcfdaabf0ed87e3bea4fd9f1cb809d.sample"
+
+[deps]
+
+source_file="res://audio/switch_flick.wav"
+dest_files=[ "res://.import/switch_flick.wav-e8fcfdaabf0ed87e3bea4fd9f1cb809d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

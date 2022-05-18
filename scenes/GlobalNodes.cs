@@ -7,14 +7,20 @@ namespace Underground
         public static GlobalNodes INSTANCE { get; private set; }
 
         private Shaker cameraShaker;
-        private static AudioStreamPlayer uIClickPlayer;
+        private static AudioStreamPlayer uiClick;
+        private static AudioStreamPlayer boing;
+        private static AudioStreamPlayer switchClick;
+        private static AudioStreamPlayer pop;
 
         public override void _Ready()
         {
             INSTANCE = this;
 
             cameraShaker = GetNode<Shaker>("Shaker");
-            uIClickPlayer = GetNode<AudioStreamPlayer>("UIClick");
+            uiClick = GetNode<AudioStreamPlayer>("UIClick");
+            boing = GetNode<AudioStreamPlayer>("Boing");
+            switchClick = GetNode<AudioStreamPlayer>("SwitchClick");
+            pop = GetNode<AudioStreamPlayer>("Pop");
         }
 
         public void CameraShake(Camera2D camera2D, float power)
@@ -23,9 +29,9 @@ namespace Underground
             cameraShaker.Shake(power);
         }
 
-        public static void UIClick()
-        {
-            uIClickPlayer.Play();
-        }
+        public static void UIClick() => uiClick.Play();
+        public static void Boing() => boing.Play();
+        public static void SwitchClick() => switchClick.Play();
+        public static void Pop() => pop.Play();
     }
 }

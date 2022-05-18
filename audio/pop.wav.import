@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/light_switch.wav-4761533c601ea5f3584fed5d332f520e.sample"
+path="res://.import/pop.wav-b68e9ebc1c6c156d9ba80b752a4c49b1.sample"
 
 [deps]
 
-source_file="res://audio/light_switch.wav"
-dest_files=[ "res://.import/light_switch.wav-4761533c601ea5f3584fed5d332f520e.sample" ]
+source_file="res://audio/pop.wav"
+dest_files=[ "res://.import/pop.wav-b68e9ebc1c6c156d9ba80b752a4c49b1.sample" ]
 
 [params]
 

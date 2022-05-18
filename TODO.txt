@@ -3,4 +3,6 @@ X Screaming particle effect: aaAAAAAaaAAAAaaa!!!!
 X Grappling hook
 * pressure plate / button puzzles like pikuniku maybe?
 * character fall animation
-* grapple angle indicator
+X grapple angle indicator
+* crumbling platforms
+X grappling hook shouldn't activate instantly, it should move towards target first

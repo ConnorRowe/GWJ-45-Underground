@@ -4,7 +4,7 @@ namespace Underground
 {
     public class Character : KinematicBody2D
     {
-        private const float JumpForce = 250f;
+        private const float JumpForce = 320f;
         private const float GravityAccel = 98f * 8;
         private const float TerminalVel = 400f;
         private const float MaxSpeed = 1600f;
@@ -34,6 +34,9 @@ namespace Underground
         private Sprite hook;
         private Sprite chain;
         private Vector2 chainStartPos;
+        private bool isHookTraveling = false;
+        private const float HookTravelSpeed = 500f;
+        private Sprite hookDirDisplay;
 
         [Export]
         public bool InputLocked { get; set; } = false;
@@ -42,6 +45,7 @@ namespace Underground
         [Export]
         public float Drive { get; set; } = 0;
         public Camera2D Camera2D { get; set; }
+        [Export]
         public bool HasHook { get; set; } = true;
 
         public override void _Ready()
@@ -57,6 +61,7 @@ namespace Underground
             chain = GetNode<Sprite>("Chain");
             debug = GetNode<Label>("debug");
             chainStartPos = chain.Position;
+            hookDirDisplay = GetNode<Sprite>("HookDirDisplay");
 
             var c = GetNodeOrNull<Camera2D>("Camera2D");
             if (c != null)
@@ -67,15 +72,33 @@ namespace Underground
         {
             bodyParts.Rotation = Mathf.LerpAngle(bodyParts.Rotation, targetAngle, delta * 10f);
             torsoBone.Rotation = bodyParts.Scale.x > 0 ? -bodyParts.Rotation : bodyParts.Rotation;
+            hookDirDisplay.Visible = false;
 
-            if (isHooked)
+            if (isHooked || isHookTraveling)
             {
-                hook.GlobalPosition = hookPosition;
                 Vector2 gPos = chain.GlobalPosition;
-                chain.Rotation = gPos.AngleToPoint(hookPosition) - (Mathf.Pi / 2);
-                float dist = gPos.DistanceTo(hookPosition);
-                chain.RegionRect = new Rect2(0, 0, 1, dist);
-                chain.Offset = new Vector2(0, dist * -.5f);
+                float angleToHook = gPos.AngleToPoint(hookPosition);
+                chain.Rotation = angleToHook - (Mathf.Pi / 2);
+                float connectDist = gPos.DistanceTo(hookPosition);
+                float chainLength = connectDist;
+                if (isHookTraveling)
+                {
+                    chainLength = chain.RegionRect.Size.y + (HookTravelSpeed * delta);
+                    if (chainLength >= connectDist)
+                    {
+                        chainLength = connectDist;
+                        isHookTraveling = false;
+                        isHooked = true;
+                    }
+                }
+                chain.RegionRect = new Rect2(0, 0, 1, chainLength);
+                chain.Offset = new Vector2(0, chainLength * -.5f);
+                hook.GlobalPosition = ToGlobal(chain.Position + (new Vector2(Mathf.Cos(angleToHook), Mathf.Sin(angleToHook)) * -chainLength));
+            }
+            else if (HasHook)
+            {
+                hookDirDisplay.Offset = GetLocalMousePosition().Normalized() * new Vector2(15, 25);
+                hookDirDisplay.Visible = true;
             }
         }
 
@@ -89,17 +112,18 @@ namespace Underground
             if (HasHook && Input.IsActionJustPressed("shoot_hook"))
             {
                 var spaceState = GetWorld2d().DirectSpaceState;
-                var trace = spaceState.IntersectRay(GlobalPosition, GlobalPosition + (GetLocalMousePosition().Normalized() * 400f), new Godot.Collections.Array() { this }, 1);
+                var trace = spaceState.IntersectRay(hookDirDisplay.GlobalPosition, hookDirDisplay.GlobalPosition + (GetLocalMousePosition().Normalized() * 400f), new Godot.Collections.Array() { this }, 1);
                 if (trace.Count > 0)
                 {
-                    isHooked = hook.Visible = chain.Visible = true;
+                    isHookTraveling = hook.Visible = chain.Visible = true;
                     hookPosition = (Vector2)trace["position"];
+                    chain.RegionRect = new Rect2();
                 }
             }
 
-            if (isHooked && Input.IsActionJustReleased("shoot_hook"))
+            if ((isHooked || isHookTraveling) && Input.IsActionJustReleased("shoot_hook"))
             {
-                isHooked = hook.Visible = chain.Visible = false;
+                isHooked = isHookTraveling = hook.Visible = chain.Visible = false;
             }
 
             if (isOnFloor)
@@ -145,7 +169,7 @@ namespace Underground
             else if (gravity > 0)
                 gravity = 0;
 
-            if (((Input.IsActionJustPressed("jump") && !InputLocked)) && (isOnFloor || coyoteJump))
+            if (((Input.IsActionPressed("jump") && !InputLocked)) && (isOnFloor || coyoteJump))
             {
                 // Jump
                 gravity = -JumpForce;
@@ -230,6 +254,12 @@ namespace Underground
                 }
             }
 
+            // Check for button to press
+            var lastSlide = GetLastSlideCollision();
+            if (lastSlide != null && lastSlide.Collider is PressureButton pb && Position.y < pb.GlobalPosition.y)
+            {
+                pb.Press();
+            }
         }
 
         private void PlayFootstep()
