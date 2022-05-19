@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/menus/ButtonA.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/MainMenu.cs" type="Script" id=3]
+[ext_resource path="res://default_theme.theme" type="Theme" id=4]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Keybindings" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBox_Jump" type="HBoxContainer" parent="Keybindings"]
+margin_right = 640.0
+margin_bottom = 25.0
+
+[node name="Label" type="Label" parent="Keybindings/HBox_Jump"]
+margin_top = 4.0
+margin_right = 27.0
+margin_bottom = 20.0
+text = "Jump"
+
+[node name="Button" parent="Keybindings/HBox_Jump" instance=ExtResource( 1 )]
+margin_left = 31.0
+margin_top = 0.0
+margin_right = 125.0
+margin_bottom = 25.0

@@ -46,5 +46,5 @@ bus = "SFX"
 
 [node name="Pop" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 4 )
-volume_db = -3.943
+volume_db = -12.322
 bus = "SFX"

@@ -4,17 +4,19 @@ namespace Underground
 {
     public class SpeechArea2D : Area2D
     {
-        [Export]
+        [Export(PropertyHint.MultilineText)]
         public string Speech { get; set; } = "";
         private float timer;
 
         private Sprite sprite;
         private Shaker shaker;
+        private Label label;
 
         public override void _Ready()
         {
             sprite = GetNode<Sprite>("Sprite");
             shaker = GetNode<Shaker>("Shaker");
+            label = GetNode<Label>("Sprite/Label");
             Connect("body_entered", this, nameof(BodyEntered));
         }
 
@@ -33,7 +35,7 @@ namespace Underground
             if (timer > Mathf.Tau)
                 timer -= Mathf.Tau;
 
-            sprite.Offset = new Vector2(.5f, .5f + (Mathf.Cos(timer) * 6));
+            label.RectPosition = new Vector2(-9, -31 + (Mathf.Cos(timer) * 6));
         }
     }
 }

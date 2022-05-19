@@ -1,17 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://textures/speech_trigger_icon.png" type="Texture" id=1]
+[ext_resource path="res://textures/info_shroom.png" type="Texture" id=1]
 [ext_resource path="res://scenes/SpeechArea2D.cs" type="Script" id=2]
 [ext_resource path="res://scenes/Shaker.cs" type="Script" id=3]
+[ext_resource path="res://fonts/Normal.tres" type="DynamicFont" id=4]
 
-[node name="Area2D2" type="Area2D"]
+[node name="SpeechArea2D" type="Area2D"]
 monitorable = false
 script = ExtResource( 2 )
 Speech = "What is this place..?"
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-offset = Vector2( 0.5, 0.5 )
+offset = Vector2( 0.5, -6.5 )
+
+[node name="Label" type="Label" parent="Sprite"]
+margin_left = -9.0
+margin_top = -31.0
+margin_right = 11.0
+margin_bottom = -15.0
+custom_fonts/font = ExtResource( 4 )
+text = "i"
+align = 1
+valign = 1
 
 [node name="Shaker" type="Node" parent="."]
 script = ExtResource( 3 )

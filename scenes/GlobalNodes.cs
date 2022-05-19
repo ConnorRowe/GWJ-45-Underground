@@ -6,7 +6,7 @@ namespace Underground
     {
         public static GlobalNodes INSTANCE { get; private set; }
 
-        private Shaker cameraShaker;
+        private static Shaker cameraShaker;
         private static AudioStreamPlayer uiClick;
         private static AudioStreamPlayer boing;
         private static AudioStreamPlayer switchClick;
@@ -23,7 +23,7 @@ namespace Underground
             pop = GetNode<AudioStreamPlayer>("Pop");
         }
 
-        public void CameraShake(Camera2D camera2D, float power)
+        public static void CameraShake(Camera2D camera2D, float power)
         {
             cameraShaker.SetTarget(camera2D);
             cameraShaker.Shake(power);

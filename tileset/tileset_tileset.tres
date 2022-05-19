@@ -6,6 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 3 )
+shader_param/offset = Vector2( 0, 0 )
 shader_param/tileset = ExtResource( 1 )
 shader_param/letters = ExtResource( 2 )
 

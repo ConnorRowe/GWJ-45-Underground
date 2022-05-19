@@ -89,6 +89,10 @@ namespace Underground
                         chainLength = connectDist;
                         isHookTraveling = false;
                         isHooked = true;
+
+                        // Autojump when hooked
+                        if (IsOnFloor())
+                            Jump();
                     }
                 }
                 chain.RegionRect = new Rect2(0, 0, 1, chainLength);
@@ -109,7 +113,7 @@ namespace Underground
             bool isOnFloor = IsOnFloor();
             bool isTouchingSomething = isOnFloor || IsOnWall() || IsOnCeiling();
 
-            if (HasHook && Input.IsActionJustPressed("shoot_hook"))
+            if (!InputLocked && HasHook && Input.IsActionJustPressed("shoot_hook"))
             {
                 var spaceState = GetWorld2d().DirectSpaceState;
                 var trace = spaceState.IntersectRay(hookDirDisplay.GlobalPosition, hookDirDisplay.GlobalPosition + (GetLocalMousePosition().Normalized() * 400f), new Godot.Collections.Array() { this }, 1);
@@ -172,15 +176,7 @@ namespace Underground
             if (((Input.IsActionPressed("jump") && !InputLocked)) && (isOnFloor || coyoteJump))
             {
                 // Jump
-                gravity = -JumpForce;
-
-                bodyParts.Rotation = targetAngle = 0;
-                coyoteJump = false;
-
-                JumpEffect jumpEffect = jumpEffectScene.Instance<JumpEffect>();
-                jumpEffect.Position = Position;
-                jumpEffect.Modulate = Modulate;
-                GetParent().AddChild(jumpEffect);
+                Jump();
             }
 
             // Hook velocity
@@ -203,7 +199,12 @@ namespace Underground
 
             if (!AnimLocked)
             {
-                if ((velocity + externalVelocity).LengthSquared() > 8f)
+                if (!isOnFloor && (gravity > 0 || (velocity + externalVelocity).y > 0))
+                {
+                    if (animationPlayer.CurrentAnimation != "Fall")
+                        animationPlayer.Play("Fall");
+                }
+                else if ((velocity + externalVelocity).LengthSquared() > 8f)
                 {
                     if (animationPlayer.CurrentAnimation != "Walk")
                         animationPlayer.Play("Walk");
@@ -249,17 +250,33 @@ namespace Underground
                 }
                 else if (fallDistance >= 100)
                 {
-                    GlobalNodes.INSTANCE.CameraShake(Camera2D, fallDistance / 300f);
+                    GlobalNodes.CameraShake(Camera2D, fallDistance / 300f);
                     fallhitPlayer.Play();
                 }
             }
 
             // Check for button to press
             var lastSlide = GetLastSlideCollision();
-            if (lastSlide != null && lastSlide.Collider is PressureButton pb && Position.y < pb.GlobalPosition.y)
+            if (lastSlide != null)
             {
-                pb.Press();
+                if (lastSlide.Collider is PressureButton pb && Position.y < pb.GlobalPosition.y)
+                    pb.Press();
+                if (lastSlide.Collider is CrumblingPlatform cr)
+                    cr.Crumble();
             }
+        }
+
+        private void Jump()
+        {
+            gravity = -JumpForce;
+
+            bodyParts.Rotation = targetAngle = 0;
+            coyoteJump = false;
+
+            JumpEffect jumpEffect = jumpEffectScene.Instance<JumpEffect>();
+            jumpEffect.Position = Position;
+            jumpEffect.Modulate = Modulate;
+            GetParent().AddChild(jumpEffect);
         }
 
         private void PlayFootstep()

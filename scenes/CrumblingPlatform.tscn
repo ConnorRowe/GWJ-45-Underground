@@ -1,0 +1,190 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://textures/crumbling_platorm.png" type="Texture" id=1]
+[ext_resource path="res://scenes/CrumblingPlatform.cs" type="Script" id=2]
+[ext_resource path="res://scenes/Shaker.cs" type="Script" id=3]
+[ext_resource path="res://particles/FloorCrumble.tscn" type="PackedScene" id=4]
+[ext_resource path="res://audio/crumble.wav" type="AudioStream" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Crumble"
+length = 4.0
+tracks/0/type = "method"
+tracks/0/path = NodePath("Crumble")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.25 ],
+"method": "play"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Shaker")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 2.0 ],
+"method": "Shake"
+}, {
+"args": [ 5.0 ],
+"method": "Shake"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Display/FloorCrumble:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:collision_layer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 1 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:collision_mask")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 1 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Display/NinePatchRect:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Display/FloorCrumble:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:collision_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Display:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Display/NinePatchRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+audio_stream = ExtResource( 5 )
+random_pitch = 1.2
+
+[node name="CrumblingPlatform" type="StaticBody2D"]
+script = ExtResource( 2 )
+
+[node name="Display" type="Node2D" parent="."]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Display"]
+margin_right = 78.0
+margin_bottom = 2.0
+texture = ExtResource( 1 )
+patch_margin_left = 3
+patch_margin_right = 2
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="FloorCrumble" parent="Display" instance=ExtResource( 4 )]
+lifetime = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Crumble = SubResource( 1 )
+anims/RESET = SubResource( 3 )
+
+[node name="Shaker" type="Node" parent="."]
+script = ExtResource( 3 )
+targetNode2DPath = NodePath("../Display")
+maxRotation = 0.0
+maxOffset = Vector2( 5, 2 )
+decay = 0.687
+
+[node name="Crumble" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 2 )
+volume_db = -1.479
+bus = "SFX_Reverb"

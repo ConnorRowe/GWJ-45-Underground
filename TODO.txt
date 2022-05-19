@@ -2,7 +2,13 @@
 X Screaming particle effect: aaAAAAAaaAAAAaaa!!!!
 X Grappling hook
 * pressure plate / button puzzles like pikuniku maybe?
-* character fall animation
+X character fall animation
 X grapple angle indicator
-* crumbling platforms
+X crumbling platforms
 X grappling hook shouldn't activate instantly, it should move towards target first
+X random letters in the tilemap shader should move with the camera
+X area that returns u to a previous point if u fall in
+X random clutter
+* menu
+* settings
+* disable camera-shake option
