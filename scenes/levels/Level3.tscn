@@ -14,48 +14,74 @@ extents = Vector2( 17.5, 1.5 )
 extents = Vector2( 160, 46 )
 
 [node name="Level3" instance=ExtResource( 1 )]
-InitialColour = Color( 0.866667, 0.541176, 0.356863, 1 )
+InitialColour = Color( 0.376471, 0.701961, 0.494118, 1 )
+HighlightColour = Color( 0.701961, 0.854902, 0.639216, 1 )
 
 [node name="TileMap" parent="." index="2"]
 tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609, -196604, 0, 7, -131071, 0, 65539, -131068, 0, 65539, -65535, 0, 65539, -65532, 0, 65539, 0, 0, 4, 1, 0, 196615, 4, 0, 196612, 5, 0, 196609, 6, 0, 6, 7, 0, 5, 8, 0, 196609, 9, 0, 196609, 10, 0, 196609, 11, 0, 196609, 12, 0, 196609, 13, 0, 196609, 14, 0, 196609, 15, 0, 196609, 16, 0, 196609, 17, 0, 196609, 18, 0, 196609, 19, 0, 196609, 20, 0, 196609, 21, 0, 196609, 22, 0, 196609, 23, 0, 196609, 24, 0, 196609, 25, 0, 196609, 26, 0, 196609, 27, 0, 196609, 28, 0, 196609, 29, 0, 196609, 30, 0, 196609, 31, 0, 7, 65536, 0, 65539, 65542, 0, 65536, 65543, 0, 65538, 65567, 0, 65539, 131072, 0, 65539, 131078, 0, 131072, 131079, 0, 131074, 131103, 0, 65539, 196608, 0, 65539, 196637, 0, 196608, 196638, 0, 196609, 196639, 0, 262151, 262144, 0, 65539, 262175, 0, 65539, 327680, 0, 65539, 327711, 0, 65539, 393216, 0, 65539, 393247, 0, 65539, 458752, 0, 65539, 458783, 0, 65539, 524288, 0, 65539, 524297, 0, 0, 524298, 0, 2, 524315, 0, 0, 524316, 0, 2, 524319, 0, 65539, 589824, 0, 65539, 589833, 0, 131072, 589834, 0, 65543, 589851, 0, 65540, 589852, 0, 131074, 589855, 0, 65539, 655360, 0, 65539, 655370, 0, 65539, 655387, 0, 65539, 655391, 0, 65539, 720896, 0, 65539, 720906, 0, 65539, 720923, 0, 65539, 720927, 0, 65539, 786432, 0, 65539, 786438, 0, 196608, 786439, 0, 196610, 786442, 0, 65539, 786459, 0, 65539, 786463, 0, 65539, 851968, 0, 65539, 851978, 0, 65539, 851995, 0, 65539, 851999, 0, 65539, 917504, 0, 65539, 917514, 0, 65539, 917531, 0, 65539, 917535, 0, 65539, 983040, 0, 65539, 983050, 0, 65539, 983067, 0, 65539, 983071, 0, 65539, 1048576, 0, 65539, 1048585, 0, 0, 1048586, 0, 131079, 1048603, 0, 131076, 1048604, 0, 2, 1048607, 0, 65539, 1114112, 0, 196612, 1114113, 0, 196609, 1114114, 0, 196609, 1114115, 0, 196609, 1114116, 0, 196609, 1114117, 0, 196609, 1114118, 0, 196609, 1114119, 0, 196609, 1114120, 0, 196609, 1114121, 0, 196614, 1114122, 0, 196613, 1114123, 0, 196609, 1114124, 0, 196609, 1114125, 0, 196609, 1114126, 0, 196609, 1114127, 0, 196609, 1114128, 0, 196609, 1114129, 0, 196609, 1114130, 0, 196609, 1114131, 0, 196609, 1114132, 0, 196609, 1114133, 0, 196609, 1114134, 0, 196609, 1114135, 0, 196609, 1114136, 0, 196609, 1114137, 0, 196609, 1114138, 0, 196609, 1114139, 0, 196614, 1114140, 0, 196613, 1114141, 0, 196609, 1114142, 0, 196609, 1114143, 0, 196615 )
 
-[node name="ExitArea" parent="OtherStuff" index="0"]
-position = Vector2( 601, 44 )
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="0"]
+position = Vector2( 603, 45 )
 
-[node name="CrumblingPlatform" parent="OtherStuff" index="1" instance=ExtResource( 3 )]
+[node name="CrumblingPlatform" parent="OtherStuff/Highlighted" index="1" instance=ExtResource( 3 )]
 position = Vector2( 273, 158 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/CrumblingPlatform" index="4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform" index="4"]
 position = Vector2( 17.5, 1.5 )
 shape = SubResource( 1 )
 one_way_collision = true
 
-[node name="CrumblingPlatform2" parent="OtherStuff" index="2" instance=ExtResource( 3 )]
+[node name="CrumblingPlatform2" parent="OtherStuff/Highlighted" index="2" instance=ExtResource( 3 )]
 position = Vector2( 362, 132 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/CrumblingPlatform2" index="4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform2" index="4"]
 position = Vector2( 17.5, 1.5 )
 shape = SubResource( 1 )
 one_way_collision = true
 
-[node name="CrumblingPlatform3" parent="OtherStuff" index="3" instance=ExtResource( 3 )]
+[node name="CrumblingPlatform3" parent="OtherStuff/Highlighted" index="3" instance=ExtResource( 3 )]
 position = Vector2( 465, 111 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/CrumblingPlatform3" index="4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform3" index="4"]
 position = Vector2( 17.5, 1.5 )
 shape = SubResource( 1 )
 one_way_collision = true
 
-[node name="ReturnArea" parent="OtherStuff" index="4" instance=ExtResource( 2 )]
+[node name="ReturnArea" parent="OtherStuff/Normal" index="0" instance=ExtResource( 2 )]
 position = Vector2( 380, 294 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/ReturnArea" index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Normal/ReturnArea" index="1"]
 shape = SubResource( 2 )
 
-[node name="Position2D" type="Position2D" parent="OtherStuff/ReturnArea" index="2"]
-position = Vector2( -178, -132 )
+[node name="Position2D" type="Position2D" parent="OtherStuff/Normal/ReturnArea" index="2"]
+position = Vector2( -178, -164 )
 
-[node name="Pillar" type="Label" parent="OtherStuff" index="5"]
+[node name="RandomClutter" parent="OtherStuff/Normal" index="1" instance=ExtResource( 5 )]
+position = Vector2( 41, 340 )
+
+[node name="RandomClutter2" parent="OtherStuff/Normal" index="2" instance=ExtResource( 5 )]
+position = Vector2( 173, 340 )
+
+[node name="RandomClutter3" parent="OtherStuff/Normal" index="3" instance=ExtResource( 5 )]
+position = Vector2( 190, 160 )
+
+[node name="RandomClutter4" parent="OtherStuff/Normal" index="4" instance=ExtResource( 5 )]
+position = Vector2( 547, 160 )
+
+[node name="RandomClutter5" parent="OtherStuff/Normal" index="5" instance=ExtResource( 5 )]
+position = Vector2( 611, 60 )
+
+[node name="heh" type="Label" parent="OtherStuff/Normal" index="6"]
+modulate = Color( 1, 1, 1, 0.439216 )
+margin_left = 581.0
+margin_top = 326.0
+margin_right = 621.0
+margin_bottom = 408.0
+custom_constants/line_spacing = -2
+custom_fonts/font = ExtResource( 6 )
+text = "heh"
+
+[node name="Pillar" type="Label" parent="OtherStuff/Normal" index="7"]
 margin_left = 138.0
 margin_top = 259.0
 margin_right = 178.0
@@ -70,28 +96,3 @@ I
 I
 I
 I"
-
-[node name="heh" type="Label" parent="OtherStuff" index="6"]
-modulate = Color( 1, 1, 1, 0.439216 )
-margin_left = 581.0
-margin_top = 326.0
-margin_right = 621.0
-margin_bottom = 408.0
-custom_constants/line_spacing = -2
-custom_fonts/font = ExtResource( 6 )
-text = "heh"
-
-[node name="RandomClutter" parent="OtherStuff" index="7" instance=ExtResource( 5 )]
-position = Vector2( 41, 340 )
-
-[node name="RandomClutter2" parent="OtherStuff" index="8" instance=ExtResource( 5 )]
-position = Vector2( 173, 340 )
-
-[node name="RandomClutter3" parent="OtherStuff" index="9" instance=ExtResource( 5 )]
-position = Vector2( 190, 160 )
-
-[node name="RandomClutter4" parent="OtherStuff" index="10" instance=ExtResource( 5 )]
-position = Vector2( 547, 160 )
-
-[node name="RandomClutter5" parent="OtherStuff" index="11" instance=ExtResource( 5 )]
-position = Vector2( 611, 60 )

@@ -11,6 +11,8 @@ namespace Underground
             GetNode("BedroomScene/BedroomDoor").Connect("body_entered", this, nameof(BodyEnteredSoPlayAnim), new Godot.Collections.Array() { "BedroomEnd" });
             GetNode("DownstairsScene/CrumblingFloor/CrumbleLabel/Area2D").Connect("body_entered", this, nameof(BodyEnteredSoPlayAnim), new Godot.Collections.Array() { "CrumbleFloor" });
             GetNode<Character>("Character").Camera2D = GetNode<Camera2D>("Camera2D");
+
+            GlobalNodes.PlayMusicTrack(GD.Load<AudioStreamOGGVorbis>("res://audio/music/track_2.ogg"));
         }
 
         private void BodyEnteredSoPlayAnim(Node body, string animName)
@@ -23,6 +25,11 @@ namespace Underground
         {
             GetTree().ChangeScene(packedScenePath);
             QueueFree();
+        }
+
+        private void FadeMusic()
+        {
+            GlobalNodes.FadeMusic(5f);
         }
     }
 }

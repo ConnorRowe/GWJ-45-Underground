@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/levels/BaseTileMapLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/SpeechArea2D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/grappling_hook_item.png" type="Texture" id=3]
 [ext_resource path="res://particles/ExclaimExplosion.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/levels/Level2.cs" type="Script" id=5]
+[ext_resource path="res://scenes/RandomClutter.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 12 )
@@ -14,7 +15,8 @@ extents = Vector2( 10, 40 )
 
 [node name="Level2" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
-InitialColour = Color( 0.580392, 0.235294, 0.65098, 1 )
+InitialColour = Color( 0.866667, 0.541176, 0.356863, 1 )
+HighlightColour = Color( 0.956863, 0.807843, 0.623529, 1 )
 nextLevelScene = "res://scenes/levels/Level3.tscn"
 
 [node name="Character" parent="." index="1"]
@@ -37,27 +39,52 @@ Use it to get to the top!"
 position = Vector2( 1, -11 )
 shape = SubResource( 1 )
 
-[node name="ExitArea" parent="OtherStuff" index="0"]
-position = Vector2( 576, 82 )
+[node name="ExclaimExplosion" parent="OtherStuff/Highlighted" index="0" instance=ExtResource( 4 )]
+position = Vector2( 220, 306 )
 
-[node name="GrapplingHookItem" type="Area2D" parent="OtherStuff" index="1"]
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="1"]
+position = Vector2( 577, 86 )
+
+[node name="GrapplingHookItem" type="Area2D" parent="OtherStuff/Highlighted" index="2"]
 position = Vector2( 220, 295 )
 
-[node name="Sprite" type="Sprite" parent="OtherStuff/GrapplingHookItem" index="0"]
+[node name="Sprite" type="Sprite" parent="OtherStuff/Highlighted/GrapplingHookItem" index="0"]
 texture = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/GrapplingHookItem" index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/GrapplingHookItem" index="1"]
 position = Vector2( 0, -16 )
 shape = SubResource( 2 )
 
-[node name="ExclaimExplosion" parent="OtherStuff" index="2" instance=ExtResource( 4 )]
-position = Vector2( 220, 306 )
+[node name="RandomClutter" parent="OtherStuff/Normal" index="0" instance=ExtResource( 6 )]
+position = Vector2( 58, 340 )
+
+[node name="RandomClutter2" parent="OtherStuff/Normal" index="1" instance=ExtResource( 6 )]
+position = Vector2( 193, 340 )
+
+[node name="RandomClutter3" parent="OtherStuff/Normal" index="2" instance=ExtResource( 6 )]
+position = Vector2( 127, 240 )
+rotation = -3.14159
+
+[node name="RandomClutter4" parent="OtherStuff/Normal" index="3" instance=ExtResource( 6 )]
+position = Vector2( 374, 180 )
+
+[node name="RandomClutter5" parent="OtherStuff/Normal" index="4" instance=ExtResource( 6 )]
+position = Vector2( 256, 340 )
+
+[node name="RandomClutter6" parent="OtherStuff/Normal" index="5" instance=ExtResource( 6 )]
+position = Vector2( 561, 340 )
+
+[node name="RandomClutter7" parent="OtherStuff/Normal" index="6" instance=ExtResource( 6 )]
+position = Vector2( 519, 340 )
+
+[node name="RandomClutter8" parent="OtherStuff/Normal" index="7" instance=ExtResource( 6 )]
+position = Vector2( 502, 340 )
+
+[node name="RandomClutter9" parent="OtherStuff/Normal" index="8" instance=ExtResource( 6 )]
+position = Vector2( 544, 100 )
 
 [node name="SpeechBox" parent="Overlay" index="0"]
 margin_left = 103.0
 margin_top = 31.0
 margin_right = 337.0
 margin_bottom = 223.0
-
-[node name="ColorRect" parent="Overlay" index="1"]
-color = Color( 0.192157, 0.133333, 0.172549, 1 )

@@ -13,20 +13,21 @@ extents = Vector2( 15, 15 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 89, 1.5 )
-
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 91, 14 )
 
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 89, 1.5 )
+
 [node name="Level1" instance=ExtResource( 1 )]
-InitialColour = Color( 0.545098, 0.486275, 0.6, 1 )
+InitialColour = Color( 0.345098, 0.188235, 0.482353, 1 )
+HighlightColour = Color( 0.596078, 0.25098, 0.443137, 1 )
 nextLevelScene = "res://scenes/levels/Level2.tscn"
 
 [node name="Character" parent="." index="1"]
 HasHook = false
 
-[node name="Camera2D" parent="Character" index="10"]
+[node name="Camera2D" parent="Character" index="13"]
 limit_right = 980
 
 [node name="TileMap" parent="." index="2"]
@@ -63,50 +64,50 @@ Speech = "Blocked... Maybe there's a button or a switch nearby that'll open it."
 position = Vector2( 1, -12 )
 shape = SubResource( 5 )
 
-[node name="PressureButton" parent="OtherStuff" index="0" instance=ExtResource( 4 )]
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="0"]
+position = Vector2( 851, 372 )
+
+[node name="CollisionShape2D" parent="OtherStuff/Highlighted/ExitArea" index="1"]
+shape = SubResource( 8 )
+
+[node name="PressureButton" parent="OtherStuff/Highlighted" index="1" instance=ExtResource( 4 )]
 position = Vector2( 432, 80 )
 
-[node name="Door" parent="OtherStuff" index="1" instance=ExtResource( 5 )]
+[node name="Door" parent="OtherStuff/Highlighted" index="2" instance=ExtResource( 5 )]
 position = Vector2( 593, 82 )
 triggerButtonsPaths = [ NodePath("../PressureButton") ]
 
-[node name="CrumblingPlatform" parent="OtherStuff" index="2" instance=ExtResource( 3 )]
+[node name="CrumblingPlatform" parent="OtherStuff/Highlighted" index="3" instance=ExtResource( 3 )]
 position = Vector2( 761, 164 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/CrumblingPlatform" index="4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform" index="4"]
 position = Vector2( 89, 1.5 )
 shape = SubResource( 7 )
 one_way_collision = true
 
-[node name="ExitArea" parent="OtherStuff" index="3"]
-position = Vector2( 850, 375 )
-
-[node name="CollisionShape2D" parent="OtherStuff/ExitArea" index="1"]
-shape = SubResource( 8 )
-
-[node name="RandomClutter" parent="OtherStuff" index="4" instance=ExtResource( 6 )]
+[node name="RandomClutter" parent="OtherStuff/Normal" index="0" instance=ExtResource( 6 )]
 position = Vector2( 65, 240 )
 
-[node name="RandomClutter2" parent="OtherStuff" index="5" instance=ExtResource( 6 )]
+[node name="RandomClutter2" parent="OtherStuff/Normal" index="1" instance=ExtResource( 6 )]
 position = Vector2( 190, 240 )
 
-[node name="RandomClutter3" parent="OtherStuff" index="6" instance=ExtResource( 6 )]
+[node name="RandomClutter3" parent="OtherStuff/Normal" index="2" instance=ExtResource( 6 )]
 position = Vector2( 230, 240 )
 
-[node name="RandomClutter4" parent="OtherStuff" index="7" instance=ExtResource( 6 )]
+[node name="RandomClutter4" parent="OtherStuff/Normal" index="3" instance=ExtResource( 6 )]
 position = Vector2( 407, 240 )
 
-[node name="RandomClutter5" parent="OtherStuff" index="8" instance=ExtResource( 6 )]
+[node name="RandomClutter5" parent="OtherStuff/Normal" index="4" instance=ExtResource( 6 )]
 position = Vector2( 529, 160 )
 
-[node name="RandomClutter6" parent="OtherStuff" index="9" instance=ExtResource( 6 )]
+[node name="RandomClutter6" parent="OtherStuff/Normal" index="5" instance=ExtResource( 6 )]
 position = Vector2( 401, 20 )
 rotation = -3.14159
 
-[node name="RandomClutter7" parent="OtherStuff" index="10" instance=ExtResource( 6 )]
+[node name="RandomClutter7" parent="OtherStuff/Normal" index="6" instance=ExtResource( 6 )]
 position = Vector2( 514, 20 )
 rotation = -3.14159
 
-[node name="RandomClutter8" parent="OtherStuff" index="11" instance=ExtResource( 6 )]
+[node name="RandomClutter8" parent="OtherStuff/Normal" index="7" instance=ExtResource( 6 )]
 position = Vector2( 498, 20 )
 rotation = -3.14159

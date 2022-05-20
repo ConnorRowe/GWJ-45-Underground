@@ -17,6 +17,9 @@ namespace Underground
         private AnimationPlayer animationPlayer;
         private AudioStreamPlayer footstepPlayer;
         private AudioStreamPlayer fallhitPlayer;
+        private AudioStreamPlayer jumpPlayer;
+        private AudioStreamPlayer chainloopPlayer;
+        private AudioStreamPlayer2D hookhitPlayer;
         private Node2D bodyParts;
         private Node2D torsoBone;
         private float inputDir = 0f;
@@ -57,6 +60,9 @@ namespace Underground
             torsoBone = GetNode<Node2D>("BodyParts/TorsoBone");
             footstepPlayer = GetNode<AudioStreamPlayer>("FootstepPlayer");
             fallhitPlayer = GetNode<AudioStreamPlayer>("FallHitPlayer");
+            jumpPlayer = GetNode<AudioStreamPlayer>("JumpPlayer");
+            chainloopPlayer = GetNode<AudioStreamPlayer>("ChainLoopPlayer");
+            hookhitPlayer = GetNode<AudioStreamPlayer2D>("Hook/HookHitPlayer");
             hook = GetNode<Sprite>("Hook");
             chain = GetNode<Sprite>("Chain");
             debug = GetNode<Label>("debug");
@@ -89,6 +95,8 @@ namespace Underground
                         chainLength = connectDist;
                         isHookTraveling = false;
                         isHooked = true;
+                        hookhitPlayer.Play();
+                        chainloopPlayer.Stop();
 
                         // Autojump when hooked
                         if (IsOnFloor())
@@ -116,18 +124,20 @@ namespace Underground
             if (!InputLocked && HasHook && Input.IsActionJustPressed("shoot_hook"))
             {
                 var spaceState = GetWorld2d().DirectSpaceState;
-                var trace = spaceState.IntersectRay(hookDirDisplay.GlobalPosition, hookDirDisplay.GlobalPosition + (GetLocalMousePosition().Normalized() * 400f), new Godot.Collections.Array() { this }, 1);
+                var trace = spaceState.IntersectRay(hookDirDisplay.GlobalPosition, hookDirDisplay.GlobalPosition + (hookDirDisplay.GetLocalMousePosition().Normalized() * 400f), new Godot.Collections.Array() { this }, 1);
                 if (trace.Count > 0)
                 {
                     isHookTraveling = hook.Visible = chain.Visible = true;
                     hookPosition = (Vector2)trace["position"];
                     chain.RegionRect = new Rect2();
+                    chainloopPlayer.Play();
                 }
             }
 
             if ((isHooked || isHookTraveling) && Input.IsActionJustReleased("shoot_hook"))
             {
                 isHooked = isHookTraveling = hook.Visible = chain.Visible = false;
+                chainloopPlayer.Stop();
             }
 
             if (isOnFloor)
@@ -277,6 +287,8 @@ namespace Underground
             jumpEffect.Position = Position;
             jumpEffect.Modulate = Modulate;
             GetParent().AddChild(jumpEffect);
+
+            jumpPlayer.Play();
         }
 
         private void PlayFootstep()

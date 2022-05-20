@@ -30,6 +30,7 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="UIClick" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = SubResource( 1 )
 volume_db = 1.479
 bus = "SFX"
@@ -48,3 +49,7 @@ bus = "SFX"
 stream = SubResource( 4 )
 volume_db = -12.322
 bus = "SFX"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+bus = "Music"

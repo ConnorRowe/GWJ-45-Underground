@@ -45,7 +45,7 @@ axis_stretch_vertical = 1
 modulate_color = Color( 0.82, 0.82, 0.82, 1 )
 draw_center = false
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 18, 33 )
 margin_left = 8.0
@@ -66,6 +66,6 @@ custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/disabled = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/normal = SubResource( 8 )
 enabled_focus_mode = 0
 text = "Test Button A"

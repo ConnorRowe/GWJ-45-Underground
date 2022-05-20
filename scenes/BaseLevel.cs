@@ -11,11 +11,16 @@ namespace Underground
         private ShaderMaterial tileMaterial;
         private Camera2D camera2D;
         protected Character character;
+        private PopupPanel pausePopup;
 
         [Export]
         public Color InitialColour { get; set; } = new Color(1f, 1f, 1f);
+        [Export]
+        public Color HighlightColour { get; set; } = new Color(1f, 1f, 1f);
         [Export(PropertyHint.File, "*.tscn")]
         private string nextLevelScene = "";
+        [Export]
+        private AudioStreamOGGVorbis track;
 
         public override void _Ready()
         {
@@ -23,6 +28,7 @@ namespace Underground
             speechBox = GetNode<RichTextLabel>("Overlay/SpeechBox");
             camera2D = GetNode<Camera2D>("Character/Camera2D");
             tileMaterial = GetNode<TileMap>("TileMap").TileSet.TileGetMaterial(0);
+            pausePopup = GetNode<PopupPanel>("Overlay/PausePopup");
 
             foreach (Node child in GetNode("SpeechTriggers").GetChildren())
             {
@@ -32,9 +38,11 @@ namespace Underground
                 }
             }
 
-            SetColour(InitialColour);
+            SetColour(InitialColour, HighlightColour);
 
-            GetNode("OtherStuff/ExitArea").Connect("body_entered", this, nameof(ExitAreaBodyEntered));
+            GetNode("OtherStuff/Highlighted/ExitArea").Connect("body_entered", this, nameof(ExitAreaBodyEntered));
+
+            GlobalNodes.PlayMusicTrack(track);
         }
 
         public override void _Input(InputEvent evt)
@@ -85,13 +93,14 @@ namespace Underground
             speechMaxChars = speechBox.GetTotalCharacterCount();
         }
 
-        public void SetColour(Color colour)
+        public void SetColour(Color normal, Color highlight)
         {
-            GetNode<Character>("Character").Modulate = colour;
-            GetNode<TileMap>("TileMap").Modulate = colour;
-            speechBox.Modulate = colour;
-            GetNode<Node2D>("SpeechTriggers").Modulate = colour;
-            GetNode<Node2D>("OtherStuff").Modulate = colour;
+            GetNode<Character>("Character").Modulate = highlight;
+            GetNode<TileMap>("TileMap").Modulate = normal;
+            speechBox.Modulate = normal;
+            GetNode<Node2D>("SpeechTriggers").Modulate = highlight;
+            GetNode<Node2D>("OtherStuff/Normal").Modulate = normal;
+            GetNode<Node2D>("OtherStuff/Highlighted").Modulate = highlight;
         }
 
         private void ExitAreaBodyEntered(Node body)

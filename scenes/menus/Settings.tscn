@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/Bold.tres" type="DynamicFont" id=1]
+[ext_resource path="res://default_theme.theme" type="Theme" id=2]
+[ext_resource path="res://scenes/menus/Settings.cs" type="Script" id=3]
+
+[node name="Settings" type="MarginContainer"]
+margin_top = 37.0
+margin_right = 628.0
+margin_bottom = 335.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+custom_constants/margin_right = 65
+custom_constants/margin_top = 16
+custom_constants/margin_left = 65
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 65.0
+margin_top = 16.0
+margin_right = 563.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 498.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0.956863, 0.807843, 0.623529, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Master Volume"
+align = 1
+
+[node name="MasterVol" type="HSlider" parent="VBoxContainer"]
+margin_top = 20.0
+margin_right = 498.0
+margin_bottom = 31.0
+focus_mode = 0
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 35.0
+margin_right = 498.0
+margin_bottom = 51.0
+custom_colors/font_color = Color( 0.956863, 0.807843, 0.623529, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Music Volume"
+align = 1
+
+[node name="MusicVol" type="HSlider" parent="VBoxContainer"]
+margin_top = 55.0
+margin_right = 498.0
+margin_bottom = 66.0
+focus_mode = 0
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+margin_top = 70.0
+margin_right = 498.0
+margin_bottom = 86.0
+custom_colors/font_color = Color( 0.956863, 0.807843, 0.623529, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Sound Effects Volume"
+align = 1
+
+[node name="SFXVol" type="HSlider" parent="VBoxContainer"]
+margin_top = 90.0
+margin_right = 498.0
+margin_bottom = 101.0
+focus_mode = 0
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="ToggleFullscreen" type="CheckButton" parent="VBoxContainer"]
+modulate = Color( 0.956863, 0.807843, 0.623529, 1 )
+margin_left = 172.0
+margin_top = 105.0
+margin_right = 325.0
+margin_bottom = 129.0
+size_flags_horizontal = 4
+size_flags_vertical = 5
+text = "Toggle Fullscreen     "
+
+[node name="DisableCameraShake" type="CheckButton" parent="VBoxContainer"]
+modulate = Color( 0.956863, 0.807843, 0.623529, 1 )
+margin_left = 172.0
+margin_top = 133.0
+margin_right = 325.0
+margin_bottom = 157.0
+size_flags_horizontal = 4
+size_flags_vertical = 5
+text = "Disable Camera Shake"

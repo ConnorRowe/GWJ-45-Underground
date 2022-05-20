@@ -11,8 +11,8 @@ namespace Underground
         {
             base._Ready();
 
-            grappleSprite = GetNode<Sprite>("OtherStuff/GrapplingHookItem/Sprite");
-            GetNode("OtherStuff/GrapplingHookItem").Connect("body_entered", this, nameof(GrappleItemBodyEntered));
+            grappleSprite = GetNode<Sprite>("OtherStuff/Highlighted/GrapplingHookItem/Sprite");
+            GetNode("OtherStuff/Highlighted/GrapplingHookItem").Connect("body_entered", this, nameof(GrappleItemBodyEntered));
         }
 
         public override void _Process(float delta)
@@ -33,9 +33,9 @@ namespace Underground
             {
                 GlobalNodes.CameraShake(c.Camera2D, 1f);
                 c.HasHook = true;
-                GetNode<Particles2D>("OtherStuff/ExclaimExplosion").Emitting = true;
-                GetNode("OtherStuff/GrapplingHookItem").QueueFree();
-                AddSpeech("[wave amp=30 freq=3]Cool!! Some kind of grappling hook!");
+                GetNode<Particles2D>("OtherStuff/Highlighted/ExclaimExplosion").Emitting = true;
+                GetNode("OtherStuff/Highlighted/GrapplingHookItem").QueueFree();
+                AddSpeech("[wave amp=40 freq=5]Cool!! Some kind of grappling hook!");
             }
         }
     }

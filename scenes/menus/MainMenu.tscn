@@ -1,8 +1,31 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scenes/menus/ButtonA.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/Bold.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/menus/ButtonB.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/menus/MainMenu.cs" type="Script" id=3]
 [ext_resource path="res://default_theme.theme" type="Theme" id=4]
+[ext_resource path="res://fonts/BoldLarge.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scenes/menus/Settings.tscn" type="PackedScene" id=6]
+[ext_resource path="res://fonts/ConsFontBold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://scenes/menus/ButtonA.tscn" type="PackedScene" id=8]
+[ext_resource path="res://textures/button_typeA.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 7 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 18, 33 )
+margin_left = 8.0
+margin_right = 8.0
+margin_top = 4.0
+margin_bottom = 5.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+draw_center = false
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -10,22 +33,463 @@ anchor_bottom = 1.0
 theme = ExtResource( 4 )
 script = ExtResource( 3 )
 
-[node name="Keybindings" type="VBoxContainer" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 0.192157, 0.133333, 0.172549, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="HBox_Jump" type="HBoxContainer" parent="Keybindings"]
-margin_right = 640.0
-margin_bottom = 25.0
+[node name="Section_Title" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 200
+custom_constants/margin_top = 6
+custom_constants/margin_left = 200
+custom_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="Keybindings/HBox_Jump"]
-margin_top = 4.0
-margin_right = 27.0
-margin_bottom = 20.0
-text = "Jump"
+[node name="Control" type="Control" parent="Section_Title"]
+margin_left = 200.0
+margin_top = 6.0
+margin_right = 440.0
+margin_bottom = 354.0
 
-[node name="Button" parent="Keybindings/HBox_Jump" instance=ExtResource( 1 )]
-margin_left = 31.0
+[node name="Credit" type="Label" parent="Section_Title/Control"]
+modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -45.0
+margin_top = -53.0
+margin_right = 195.0
+margin_bottom = 1.0
+text = "Made by Connor Magson
+for Godot Wild Jam #45
+Theme: Underground"
+align = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Section_Title"]
+margin_left = 200.0
+margin_top = 6.0
+margin_right = 440.0
+margin_bottom = 354.0
+rect_pivot_offset = Vector2( -60, -5 )
+
+[node name="Title" type="Label" parent="Section_Title/VBoxContainer"]
+margin_right = 240.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.87451, 0.321569, 0.619608, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Game Title"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Section_Title/VBoxContainer"]
+margin_top = 52.0
+margin_right = 240.0
+margin_bottom = 190.0
+custom_constants/separation = 138
+custom_styles/separator = SubResource( 2 )
+
+[node name="Play" parent="Section_Title/VBoxContainer" instance=ExtResource( 2 )]
+modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
+margin_left = 0.0
+margin_top = 194.0
+margin_right = 240.0
+margin_bottom = 227.0
+text = "Play"
+
+[node name="HSeparator2" type="HSeparator" parent="Section_Title/VBoxContainer"]
+margin_top = 231.0
+margin_right = 240.0
+margin_bottom = 267.0
+custom_constants/separation = 36
+custom_styles/separator = SubResource( 2 )
+
+[node name="Settings" parent="Section_Title/VBoxContainer" instance=ExtResource( 8 )]
+modulate = Color( 0.580392, 0.235294, 0.65098, 1 )
+margin_left = 0.0
+margin_top = 271.0
+margin_right = 240.0
+margin_bottom = 296.0
+text = "Settings"
+
+[node name="HSeparator3" type="HSeparator" parent="Section_Title/VBoxContainer"]
+margin_top = 300.0
+margin_right = 240.0
+margin_bottom = 312.0
+custom_constants/separation = 12
+custom_styles/separator = SubResource( 2 )
+
+[node name="Controls" parent="Section_Title/VBoxContainer" instance=ExtResource( 8 )]
+modulate = Color( 0.580392, 0.235294, 0.65098, 1 )
+margin_left = 0.0
+margin_top = 316.0
+margin_right = 240.0
+margin_bottom = 341.0
+text = "Customize Controls"
+
+[node name="Section_LevelSelect" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 6
+custom_constants/margin_top = 19
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 6
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Section_LevelSelect"]
+margin_left = 6.0
+margin_top = 19.0
+margin_right = 634.0
+margin_bottom = 354.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Section_LevelSelect/VBoxContainer"]
+margin_right = 628.0
+margin_bottom = 33.0
+
+[node name="BackButton" parent="Section_LevelSelect/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+modulate = Color( 0.866667, 0.541176, 0.356863, 1 )
+margin_left = 0.0
 margin_top = 0.0
-margin_right = 125.0
-margin_bottom = 25.0
+margin_right = 83.0
+margin_bottom = 33.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "<< Back "
+
+[node name="Title" type="Label" parent="Section_LevelSelect/VBoxContainer/HBoxContainer"]
+margin_left = 93.0
+margin_right = 628.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.956863, 0.807843, 0.623529, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Level Selection        "
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Section_LevelSelect/VBoxContainer"]
+margin_top = 37.0
+margin_right = 628.0
+margin_bottom = 335.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 6
+custom_constants/margin_top = 6
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 6
+
+[node name="Panel" type="Panel" parent="Section_LevelSelect/VBoxContainer/MarginContainer"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 622.0
+margin_bottom = 292.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 612.0
+margin_bottom = 282.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 8
+custom_constants/hseparation = 34
+columns = 5
+
+[node name="Button" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 94.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button2" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 128.0
+margin_top = 0.0
+margin_right = 222.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button3" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 256.0
+margin_top = 0.0
+margin_right = 350.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button4" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 384.0
+margin_top = 0.0
+margin_right = 478.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button5" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 512.0
+margin_top = 0.0
+margin_right = 606.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button6" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 0.0
+margin_top = 95.0
+margin_right = 94.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button7" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 128.0
+margin_top = 95.0
+margin_right = 222.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button8" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 256.0
+margin_top = 95.0
+margin_right = 350.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button9" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 384.0
+margin_top = 95.0
+margin_right = 478.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button10" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 512.0
+margin_top = 95.0
+margin_right = 606.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button11" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 0.0
+margin_top = 190.0
+margin_right = 94.0
+margin_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button12" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 128.0
+margin_top = 190.0
+margin_right = 222.0
+margin_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button13" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 256.0
+margin_top = 190.0
+margin_right = 350.0
+margin_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button14" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 384.0
+margin_top = 190.0
+margin_right = 478.0
+margin_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button15" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer/GridContainer" instance=ExtResource( 8 )]
+margin_left = 512.0
+margin_top = 190.0
+margin_right = 606.0
+margin_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Section_Settings" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 6
+custom_constants/margin_top = 19
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Section_Settings"]
+margin_left = 6.0
+margin_top = 19.0
+margin_right = 634.0
+margin_bottom = 354.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Section_Settings/VBoxContainer"]
+margin_right = 628.0
+margin_bottom = 33.0
+
+[node name="BackButton" parent="Section_Settings/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+modulate = Color( 0.866667, 0.541176, 0.356863, 1 )
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 83.0
+margin_bottom = 33.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "<< Back "
+
+[node name="Title" type="Label" parent="Section_Settings/VBoxContainer/HBoxContainer"]
+margin_left = 93.0
+margin_right = 628.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.956863, 0.807843, 0.623529, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Settings        "
+align = 1
+
+[node name="Settings" parent="Section_Settings/VBoxContainer" instance=ExtResource( 6 )]
+
+[node name="Section_Keybinds" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Section_Keybinds"]
+margin_left = 6.0
+margin_right = 634.0
+margin_bottom = 354.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Section_Keybinds/VBoxContainer"]
+margin_right = 628.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="BackButton" parent="Section_Keybinds/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
+margin_left = 0.0
+margin_top = 19.0
+margin_right = 83.0
+margin_bottom = 52.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "<< Back "
+
+[node name="Title" type="Label" parent="Section_Keybinds/VBoxContainer/HBoxContainer"]
+margin_left = 93.0
+margin_top = 20.0
+margin_right = 417.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.956863, 0.611765, 0.682353, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Configure Controls"
+align = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Section_Keybinds/VBoxContainer/HBoxContainer"]
+margin_left = 427.0
+margin_right = 628.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.62
+custom_colors/default_color = Color( 0.87451, 0.321569, 0.619608, 1 )
+bbcode_enabled = true
+bbcode_text = "[center][wave amp=20 freq=1]
+Click a button under either input column, then perform an input!  Press ESC to cancel."
+text = "
+Click a button under either input column, then perform an input!  Press ESC to cancel."
+scroll_active = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Section_Keybinds/VBoxContainer"]
+margin_top = 76.0
+margin_right = 628.0
+margin_bottom = 317.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Section_Keybinds/VBoxContainer/ScrollContainer"]
+margin_right = 628.0
+margin_bottom = 241.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionNames" type="VBoxContainer" parent="Section_Keybinds/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_right = 337.0
+margin_bottom = 241.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.49
+
+[node name="Label" type="Label" parent="Section_Keybinds/VBoxContainer/ScrollContainer/HBoxContainer/ActionNames"]
+margin_right = 337.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0.956863, 0.611765, 0.682353, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Action"
+align = 1
+
+[node name="PrimaryInputs" type="VBoxContainer" parent="Section_Keybinds/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 347.0
+margin_right = 482.0
+margin_bottom = 241.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Section_Keybinds/VBoxContainer/ScrollContainer/HBoxContainer/PrimaryInputs"]
+margin_right = 135.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0.956863, 0.611765, 0.682353, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Input A"
+align = 1
+
+[node name="AltInputs" type="VBoxContainer" parent="Section_Keybinds/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 492.0
+margin_right = 628.0
+margin_bottom = 241.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Section_Keybinds/VBoxContainer/ScrollContainer/HBoxContainer/AltInputs"]
+margin_right = 136.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0.956863, 0.611765, 0.682353, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Input B"
+align = 1
+
+[node name="ReturnToDefaults" parent="Section_Keybinds/VBoxContainer" instance=ExtResource( 2 )]
+modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
+margin_left = 245.0
+margin_top = 321.0
+margin_right = 383.0
+margin_bottom = 354.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = " reset to defaults "
