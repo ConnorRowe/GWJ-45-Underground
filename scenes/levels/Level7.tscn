@@ -1,0 +1,358 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/levels/BaseTileMapLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/SpeechArea2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/CrumblingPlatform.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 12 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Alert"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ",", ".", "!", "'", "
+" ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Shaker")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 2.0 ],
+"method": "Shake"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ".,," ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "Charge"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ",,," ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Walk"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ".,,", ",.,", ",,." ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Alert"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ",", ".", "!", "'", "
+" ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Shaker")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 2.0 ],
+"method": "Shake"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ".,," ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "Charge"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ",,," ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Walk"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ".,,", ",.,", ",,." ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 76.5, 2 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 59, 2 )
+
+[node name="Level7" instance=ExtResource( 1 )]
+InitialColour = Color( 0.596078, 0.25098, 0.443137, 1 )
+HighlightColour = Color( 0.901961, 0.305882, 0.294118, 1 )
+nextLevelScene = "res://scenes/levels/Level8.tscn"
+levelNum = 7
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609, -196604, 0, 7, -131071, 0, 65539, -131068, 0, 65539, -65535, 0, 65539, -65532, 0, 65539, 0, 0, 0, 1, 0, 131079, 4, 0, 131076, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 16, 0, 1, 17, 0, 1, 18, 0, 1, 19, 0, 1, 20, 0, 1, 21, 0, 1, 22, 0, 1, 23, 0, 1, 24, 0, 1, 25, 0, 1, 26, 0, 1, 27, 0, 1, 28, 0, 1, 29, 0, 1, 30, 0, 1, 31, 0, 2, 65536, 0, 65536, 65537, 0, 65538, 65540, 0, 65536, 65541, 0, 65537, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65537, 65553, 0, 65537, 65554, 0, 65537, 65555, 0, 65537, 65556, 0, 65537, 65557, 0, 65537, 65558, 0, 65537, 65559, 0, 65537, 65560, 0, 65537, 65561, 0, 65537, 65562, 0, 65537, 65563, 0, 65537, 65564, 0, 65537, 65565, 0, 65537, 65566, 0, 65537, 65567, 0, 65538, 131072, 0, 65536, 131073, 0, 65538, 131076, 0, 65536, 131077, 0, 65537, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65537, 131088, 0, 65537, 131089, 0, 65537, 131090, 0, 65537, 131091, 0, 65537, 131092, 0, 65537, 131093, 0, 65537, 131094, 0, 65537, 131095, 0, 65537, 131096, 0, 65537, 131097, 0, 65537, 131098, 0, 65537, 131099, 0, 65537, 131100, 0, 65537, 131101, 0, 65537, 131102, 0, 65537, 131103, 0, 65538, 196608, 0, 65536, 196609, 0, 65538, 196612, 0, 65536, 196613, 0, 65537, 196614, 0, 65537, 196615, 0, 65537, 196616, 0, 65537, 196617, 0, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65537, 196624, 0, 65537, 196625, 0, 65537, 196626, 0, 65537, 196627, 0, 65537, 196628, 0, 65537, 196629, 0, 65537, 196630, 0, 65537, 196631, 0, 65537, 196632, 0, 65537, 196633, 0, 65537, 196634, 0, 65537, 196635, 0, 65537, 196636, 0, 65537, 196637, 0, 65537, 196638, 0, 65537, 196639, 0, 65538, 262144, 0, 65536, 262145, 0, 65538, 262148, 0, 65536, 262149, 0, 65537, 262150, 0, 65537, 262151, 0, 65537, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65537, 262160, 0, 65537, 262161, 0, 65537, 262162, 0, 65537, 262163, 0, 65537, 262164, 0, 65537, 262165, 0, 65537, 262166, 0, 65537, 262167, 0, 65537, 262168, 0, 65537, 262169, 0, 65537, 262170, 0, 65537, 262171, 0, 65537, 262172, 0, 65537, 262173, 0, 65537, 262174, 0, 65537, 262175, 0, 65538, 327680, 0, 65536, 327681, 0, 65538, 327684, 0, 65536, 327685, 0, 65537, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65537, 327696, 0, 65537, 327697, 0, 65537, 327698, 0, 65537, 327699, 0, 65537, 327700, 0, 65537, 327701, 0, 65537, 327702, 0, 65537, 327703, 0, 65537, 327704, 0, 65537, 327705, 0, 65537, 327706, 0, 65537, 327707, 0, 65537, 327708, 0, 65537, 327709, 0, 65537, 327710, 0, 65537, 327711, 0, 65538, 393216, 0, 65536, 393217, 0, 65538, 393220, 0, 65540, 393221, 0, 131073, 393222, 0, 131073, 393223, 0, 131073, 393224, 0, 131073, 393225, 0, 131073, 393226, 0, 131073, 393227, 0, 131073, 393228, 0, 131073, 393229, 0, 131073, 393230, 0, 131073, 393231, 0, 131073, 393232, 0, 131073, 393233, 0, 131073, 393234, 0, 131073, 393235, 0, 131073, 393236, 0, 131073, 393237, 0, 131073, 393238, 0, 131073, 393239, 0, 131073, 393240, 0, 131073, 393241, 0, 131073, 393242, 0, 131073, 393243, 0, 131073, 393244, 0, 131073, 393245, 0, 131073, 393246, 0, 131073, 393247, 0, 65543, 458752, 0, 65536, 458753, 0, 65538, 458756, 0, 65539, 458783, 0, 65539, 524288, 0, 65536, 524289, 0, 65538, 524292, 0, 65539, 524319, 0, 65539, 589824, 0, 65536, 589825, 0, 65538, 589828, 0, 65539, 589855, 0, 65539, 655360, 0, 65536, 655361, 0, 65538, 655364, 0, 196612, 655365, 0, 196609, 655366, 0, 196609, 655367, 0, 196609, 655368, 0, 196609, 655369, 0, 196609, 655370, 0, 196609, 655371, 0, 196609, 655372, 0, 196609, 655373, 0, 196609, 655374, 0, 196609, 655375, 0, 196610, 655384, 0, 196611, 655391, 0, 65539, 720896, 0, 65536, 720897, 0, 65538, 720927, 0, 65539, 786432, 0, 65536, 786433, 0, 65538, 786463, 0, 65539, 851968, 0, 65536, 851969, 0, 65538, 851999, 0, 65539, 917504, 0, 65536, 917505, 0, 65538, 917535, 0, 65539, 983040, 0, 65536, 983041, 0, 65538, 983071, 0, 65539, 1048576, 0, 65536, 1048577, 0, 65538, 1048582, 0, 3, 1048591, 0, 3, 1048600, 0, 3, 1048607, 0, 65539, 1114112, 0, 131072, 1114113, 0, 196613, 1114114, 0, 196609, 1114115, 0, 196609, 1114116, 0, 196609, 1114117, 0, 196609, 1114118, 0, 196616, 1114119, 0, 196609, 1114120, 0, 196609, 1114121, 0, 196609, 1114122, 0, 196609, 1114123, 0, 196609, 1114124, 0, 196609, 1114125, 0, 196609, 1114126, 0, 196609, 1114127, 0, 196616, 1114128, 0, 196609, 1114129, 0, 196609, 1114130, 0, 196609, 1114131, 0, 196609, 1114132, 0, 196609, 1114133, 0, 196609, 1114134, 0, 196609, 1114135, 0, 196609, 1114136, 0, 196616, 1114137, 0, 196609, 1114138, 0, 196609, 1114139, 0, 196609, 1114140, 0, 196609, 1114141, 0, 196609, 1114142, 0, 196609, 1114143, 0, 196615 )
+
+[node name="SpeechArea2D" parent="SpeechTriggers" index="0" instance=ExtResource( 2 )]
+position = Vector2( 101, 339 )
+Speech = "Aww... That lil thing looks so cute! I bet they're friendly."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeechTriggers/SpeechArea2D" index="2"]
+position = Vector2( 1, -11 )
+shape = SubResource( 1 )
+
+[node name="SpeechArea2D2" parent="SpeechTriggers" index="1" instance=ExtResource( 2 )]
+position = Vector2( 302, 200 )
+Speech = "Ok. Not friendly."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeechTriggers/SpeechArea2D2" index="2"]
+position = Vector2( 1, -11 )
+shape = SubResource( 1 )
+
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="0"]
+position = Vector2( 124, 185 )
+
+[node name="SpeechBox" parent="OtherStuff/Highlighted" index="1"]
+margin_left = 128.0
+margin_top = 81.0
+margin_right = 434.0
+margin_bottom = 132.0
+
+[node name="Enemy" parent="OtherStuff/Highlighted" index="2" instance=ExtResource( 3 )]
+position = Vector2( 220, 331 )
+startLeft = true
+
+[node name="PointA" parent="OtherStuff/Highlighted/Enemy" index="3"]
+position = Vector2( -62, 0 )
+
+[node name="PointB" parent="OtherStuff/Highlighted/Enemy" index="4"]
+position = Vector2( 62, 0 )
+
+[node name="Enemy2" parent="OtherStuff/Highlighted" index="3" instance=ExtResource( 3 )]
+position = Vector2( 406, 331 )
+
+[node name="AnimationPlayer" parent="OtherStuff/Highlighted/Enemy2" index="0"]
+anims/Alert = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+anims/Walk = SubResource( 4 )
+
+[node name="PointA" parent="OtherStuff/Highlighted/Enemy2" index="3"]
+position = Vector2( -68, 0 )
+
+[node name="PointB" parent="OtherStuff/Highlighted/Enemy2" index="4"]
+position = Vector2( 56, 0 )
+
+[node name="Enemy3" parent="OtherStuff/Highlighted" index="4" instance=ExtResource( 3 )]
+position = Vector2( 568, 331 )
+startLeft = true
+
+[node name="AnimationPlayer" parent="OtherStuff/Highlighted/Enemy3" index="0"]
+anims/Alert = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+anims/Walk = SubResource( 7 )
+
+[node name="PointA" parent="OtherStuff/Highlighted/Enemy3" index="3"]
+position = Vector2( -50, 0 )
+
+[node name="PointB" parent="OtherStuff/Highlighted/Enemy3" index="4"]
+position = Vector2( 34, 0 )
+
+[node name="CrumblingPlatform" parent="OtherStuff/Highlighted" index="5" instance=ExtResource( 5 )]
+position = Vector2( 326, 200 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform" index="4"]
+position = Vector2( 76.5, 2 )
+shape = SubResource( 8 )
+one_way_collision = true
+
+[node name="CrumblingPlatform2" parent="OtherStuff/Highlighted" index="6" instance=ExtResource( 5 )]
+position = Vector2( 501, 200 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform2" index="4"]
+position = Vector2( 59, 2 )
+shape = SubResource( 9 )
+one_way_collision = true
+
+[editable path="OtherStuff/Highlighted/Enemy"]
+[editable path="OtherStuff/Highlighted/Enemy2"]
+[editable path="OtherStuff/Highlighted/Enemy3"]

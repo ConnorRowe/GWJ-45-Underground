@@ -925,6 +925,7 @@ audio_stream = ExtResource( 10 )
 random_pitch = 1.2
 
 [node name="Character" type="KinematicBody2D"]
+collision_layer = 3
 script = ExtResource( 2 )
 InputLocked = true
 AnimLocked = true
@@ -1043,7 +1044,6 @@ script = ExtResource( 3 )
 targetNode2DPath = NodePath("../BodyParts")
 maxRotation = 0.696
 maxOffset = Vector2( 10, 7 )
-decay = 0.168
 
 [node name="FootstepPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 10 )

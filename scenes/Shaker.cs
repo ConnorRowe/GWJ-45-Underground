@@ -12,6 +12,7 @@ namespace Underground
         private Vector2 maxOffset = new Vector2(20f, 20f);
         private Node2D target;
         private Camera2D targetCamera;
+        private Control targetControl;
         private static OpenSimplexNoise noise = new OpenSimplexNoise()
         {
             Seed = 42069,
@@ -33,7 +34,7 @@ namespace Underground
         {
             base._Process(delta);
 
-            if (target != null || targetCamera != null)
+            if (target != null || targetCamera != null || targetControl != null)
             {
                 if (trauma > 0)
                 {
@@ -48,14 +49,19 @@ namespace Underground
                     else
                         noiseY++;
 
-                    target.Rotation = maxRotation * amount * noise.GetNoise2d(noise.Seed, noiseY);
+                    float r = maxRotation * amount * noise.GetNoise2d(noise.Seed, noiseY);
                     Vector2 offset = new Vector2();
                     offset.x = maxOffset.x * amount * noise.GetNoise2d(noise.Seed * 2, noiseY);
                     offset.y = maxOffset.y * amount * noise.GetNoise2d(noise.Seed * 3, noiseY);
 
+                    if (target != null)
+                        target.Rotation = r;
+
                     if (targetCamera != null)
                         targetCamera.Offset = offset;
-                    else
+                    else if (targetControl != null)
+                        targetControl.RectRotation = r;
+                    else if (target != null)
                         target.Position = offset;
                 }
             }
@@ -75,6 +81,10 @@ namespace Underground
             else if (target is Node2D node2D)
             {
                 this.target = node2D;
+            }
+            else if (target is Control control)
+            {
+                this.targetControl = control;
             }
         }
     }

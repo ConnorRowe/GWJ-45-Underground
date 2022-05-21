@@ -2,7 +2,7 @@ using Godot;
 
 namespace Underground
 {
-    public class Level2 : BaseLevel
+    public class Level2 : TileMapLevel
     {
         private float timer;
         private Sprite grappleSprite;
@@ -36,6 +36,7 @@ namespace Underground
                 GetNode<Particles2D>("OtherStuff/Highlighted/ExclaimExplosion").Emitting = true;
                 GetNode("OtherStuff/Highlighted/GrapplingHookItem").QueueFree();
                 AddSpeech("[wave amp=40 freq=5]Cool!! Some kind of grappling hook!");
+                GetNode<AudioStreamPlayer>("PickupHook").Play();
             }
         }
     }

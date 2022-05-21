@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://particles/FloorCrumble.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://audio/whistle.wav" type="AudioStream" id=11]
 [ext_resource path="res://audio/crumble.wav" type="AudioStream" id=12]
 [ext_resource path="res://audio/fallhit.wav" type="AudioStream" id=13]
+[ext_resource path="res://audio/music/track_2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://scenes/levels/PausePopup.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6.5, 86 )
@@ -246,6 +248,18 @@ tracks/13/keys = {
 "method": "PlayAnimation"
 } ]
 }
+tracks/14/type = "value"
+tracks/14/path = NodePath("../Character/Shaker:decay")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0.168 ]
+}
 
 [sub_resource type="Animation" id=15]
 resource_name = "CrumbleFloor"
@@ -412,8 +426,8 @@ tracks/11/keys = {
 "args": [  ],
 "method": "FadeMusic"
 }, {
-"args": [ "res://scenes/levels/Level1.tscn" ],
-"method": "SwitchSceneTo"
+"args": [  ],
+"method": "NextLevel"
 } ]
 }
 tracks/12/type = "method"
@@ -837,6 +851,18 @@ tracks/18/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/19/type = "value"
+tracks/19/path = NodePath("../Character/Shaker:decay")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.168 ]
+}
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 10, 27.5 )
@@ -872,6 +898,11 @@ anim_offset_random = 1.0
 
 [node name="StartLevel" type="Node2D"]
 script = ExtResource( 3 )
+InitialColour = Color( 0.227451, 0.203922, 0.529412, 1 )
+HighlightColour = Color( 0.227451, 0.203922, 0.529412, 1 )
+nextLevelScene = "res://scenes/levels/Level1.tscn"
+track = ExtResource( 14 )
+levelNum = 0
 
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -1
@@ -882,7 +913,7 @@ margin_bottom = 360.0
 color = Color( 0.192157, 0.133333, 0.172549, 1 )
 
 [node name="Character" parent="." instance=ExtResource( 2 )]
-modulate = Color( 0.227451, 0.203922, 0.529412, 1 )
+modulate = Color( 0.227451, 0.203922, 0.529412, 0 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 103, 241 )
 z_index = -1
@@ -896,8 +927,7 @@ margin_left = -379.0
 margin_top = -19.0
 margin_right = 813.0
 margin_bottom = 510.0
-rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 318, 314 )
+rect_pivot_offset = Vector2( 390, 321 )
 custom_colors/font_color = Color( 0.298039, 0.258824, 0.552941, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "                                                                      `\\                                                    '
@@ -1017,13 +1047,13 @@ text = "[wave amp=30 freq=3]Move with A and D
                          Jump with spacebar or W"
 
 [node name="ExclaimExplosion" parent="BedroomScene" instance=ExtResource( 8 )]
+visible = false
 modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
 position = Vector2( 101, 226 )
 
 [node name="SleepyZs" parent="BedroomScene" instance=ExtResource( 7 )]
 modulate = Color( 0.227451, 0.203922, 0.529412, 1 )
 position = Vector2( 92, 207 )
-emitting = false
 preprocess = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BedroomScene"]
@@ -1123,3 +1153,9 @@ decay = 0.438
 [node name="CrumblePlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 bus = "SFX_Reverb"
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="PausePopup" parent="Overlay" instance=ExtResource( 15 )]
+
+[editable path="Character"]

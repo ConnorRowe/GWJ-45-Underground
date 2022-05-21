@@ -1,0 +1,241 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/levels/BaseTileMapLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/PressureButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/CrumblingPlatform.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ReturnArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/SpeechArea2D.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 10, 12 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "Alert"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ",", ".", "!", "'", "
+" ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Shaker")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 2.0 ],
+"method": "Shake"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ".,," ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "Charge"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ",,," ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Walk"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ".,,", ",.,", ",,." ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 40, 1 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 30, 1 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 280, 36 )
+
+[node name="Level8" instance=ExtResource( 1 )]
+InitialColour = Color( 0.360784, 0.333333, 0.717647, 1 )
+HighlightColour = Color( 0.788235, 0.780392, 0.92549, 1 )
+levelNum = 8
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609, -196604, 0, 7, -131071, 0, 65539, -131068, 0, 65539, -65535, 0, 65539, -65532, 0, 65539, 0, 0, 0, 1, 0, 131079, 4, 0, 131076, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 16, 0, 5, 17, 0, 196609, 18, 0, 196609, 19, 0, 196609, 20, 0, 196609, 21, 0, 196609, 22, 0, 196609, 23, 0, 196609, 24, 0, 196609, 25, 0, 196609, 26, 0, 196609, 27, 0, 196609, 28, 0, 196609, 29, 0, 196609, 30, 0, 6, 31, 0, 2, 65536, 0, 65536, 65537, 0, 65538, 65540, 0, 65536, 65541, 0, 65537, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65538, 65566, 0, 65536, 65567, 0, 65538, 131072, 0, 65536, 131073, 0, 65538, 131076, 0, 65536, 131077, 0, 65537, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65537, 131088, 0, 65538, 131102, 0, 65536, 131103, 0, 65538, 196608, 0, 65536, 196609, 0, 65538, 196612, 0, 131072, 196613, 0, 131073, 196614, 0, 131073, 196615, 0, 131073, 196616, 0, 131073, 196617, 0, 65542, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65537, 196624, 0, 65538, 196628, 0, 196608, 196629, 0, 196609, 196630, 0, 196609, 196631, 0, 196609, 196632, 0, 196609, 196633, 0, 196609, 196634, 0, 196609, 196635, 0, 196609, 196636, 0, 196609, 196637, 0, 196609, 196638, 0, 262150, 196639, 0, 65538, 262144, 0, 65536, 262145, 0, 65538, 262153, 0, 65536, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65537, 262160, 0, 65538, 262174, 0, 65536, 262175, 0, 65538, 327680, 0, 65536, 327681, 0, 65538, 327689, 0, 65536, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65537, 327696, 0, 65538, 327710, 0, 65536, 327711, 0, 65538, 393216, 0, 65536, 393217, 0, 262149, 393218, 0, 196609, 393219, 0, 196609, 393220, 0, 196609, 393221, 0, 196609, 393222, 0, 196610, 393225, 0, 131072, 393226, 0, 131073, 393227, 0, 131073, 393228, 0, 131073, 393229, 0, 131073, 393230, 0, 131073, 393231, 0, 131073, 393232, 0, 131074, 393237, 0, 196608, 393238, 0, 196609, 393239, 0, 196609, 393240, 0, 196609, 393241, 0, 196609, 393242, 0, 196610, 393246, 0, 65536, 393247, 0, 65538, 458752, 0, 65536, 458753, 0, 65538, 458782, 0, 65536, 458783, 0, 65538, 524288, 0, 65536, 524289, 0, 65538, 524318, 0, 65536, 524319, 0, 65538, 589824, 0, 65536, 589825, 0, 65538, 589854, 0, 65536, 589855, 0, 65538, 655360, 0, 65536, 655361, 0, 65538, 655390, 0, 65536, 655391, 0, 65538, 720896, 0, 65536, 720897, 0, 65538, 720903, 0, 196608, 720904, 0, 196609, 720905, 0, 196609, 720906, 0, 196609, 720907, 0, 196609, 720908, 0, 196609, 720909, 0, 196609, 720910, 0, 196609, 720911, 0, 196609, 720912, 0, 196610, 720917, 0, 196608, 720918, 0, 196609, 720919, 0, 196609, 720920, 0, 196609, 720921, 0, 196609, 720922, 0, 196609, 720923, 0, 196609, 720924, 0, 196609, 720925, 0, 196609, 720926, 0, 262150, 720927, 0, 65538, 786432, 0, 65536, 786433, 0, 65538, 786462, 0, 65536, 786463, 0, 65538, 851968, 0, 65536, 851969, 0, 65538, 851998, 0, 65536, 851999, 0, 65538, 917504, 0, 65536, 917505, 0, 65538, 917534, 0, 65536, 917535, 0, 65538, 983040, 0, 65536, 983041, 0, 65538, 983070, 0, 65536, 983071, 0, 65538, 1048576, 0, 65536, 1048577, 0, 131077, 1048578, 0, 1, 1048579, 0, 1, 1048580, 0, 1, 1048581, 0, 1, 1048582, 0, 1, 1048583, 0, 1, 1048584, 0, 1, 1048585, 0, 1, 1048586, 0, 1, 1048587, 0, 1, 1048588, 0, 1, 1048589, 0, 1, 1048590, 0, 1, 1048591, 0, 1, 1048592, 0, 1, 1048593, 0, 1, 1048594, 0, 1, 1048595, 0, 1, 1048596, 0, 1, 1048597, 0, 1, 1048598, 0, 1, 1048599, 0, 1, 1048600, 0, 1, 1048601, 0, 1, 1048602, 0, 1, 1048603, 0, 1, 1048604, 0, 1, 1048605, 0, 1, 1048606, 0, 131078, 1048607, 0, 65538, 1114112, 0, 131072, 1114113, 0, 131073, 1114114, 0, 131073, 1114115, 0, 131073, 1114116, 0, 131073, 1114117, 0, 131073, 1114118, 0, 131073, 1114119, 0, 131073, 1114120, 0, 131073, 1114121, 0, 131073, 1114122, 0, 131073, 1114123, 0, 131073, 1114124, 0, 131073, 1114125, 0, 131073, 1114126, 0, 131073, 1114127, 0, 131073, 1114128, 0, 131073, 1114129, 0, 131073, 1114130, 0, 131073, 1114131, 0, 131073, 1114132, 0, 131073, 1114133, 0, 131073, 1114134, 0, 131073, 1114135, 0, 131073, 1114136, 0, 131073, 1114137, 0, 131073, 1114138, 0, 131073, 1114139, 0, 131073, 1114140, 0, 131073, 1114141, 0, 131073, 1114142, 0, 131073, 1114143, 0, 131074 )
+
+[node name="SpeechArea2D" parent="SpeechTriggers" index="0" instance=ExtResource( 7 )]
+position = Vector2( 89, 120 )
+Speech = "Remember. Not friendly. :("
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeechTriggers/SpeechArea2D" index="2"]
+position = Vector2( 1, -11 )
+shape = SubResource( 7 )
+
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="0"]
+position = Vector2( 581, 45 )
+
+[node name="SpeechBox" parent="OtherStuff/Highlighted" index="1"]
+margin_left = 187.0
+margin_top = 80.0
+margin_right = 334.0
+margin_bottom = 124.0
+
+[node name="Enemy" parent="OtherStuff/Highlighted" index="2" instance=ExtResource( 5 )]
+position = Vector2( 223, 211 )
+startLeft = true
+
+[node name="PointA" parent="OtherStuff/Highlighted/Enemy" index="3"]
+position = Vector2( -72, 9 )
+
+[node name="PointB" parent="OtherStuff/Highlighted/Enemy" index="4"]
+position = Vector2( 107, 9 )
+
+[node name="Enemy2" parent="OtherStuff/Highlighted" index="3" instance=ExtResource( 5 )]
+position = Vector2( 510, 211 )
+
+[node name="AnimationPlayer" parent="OtherStuff/Highlighted/Enemy2" index="0"]
+anims/Alert = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+anims/Walk = SubResource( 3 )
+
+[node name="PointA" parent="OtherStuff/Highlighted/Enemy2" index="3"]
+position = Vector2( -80, 9 )
+
+[node name="PointB" parent="OtherStuff/Highlighted/Enemy2" index="4"]
+position = Vector2( 72, 9 )
+
+[node name="CrumblingPlatform" parent="OtherStuff/Highlighted" index="4" instance=ExtResource( 3 )]
+position = Vector2( 340, 127 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform" index="4"]
+position = Vector2( 40, 1 )
+shape = SubResource( 5 )
+one_way_collision = true
+
+[node name="CrumblingPlatform2" parent="OtherStuff/Highlighted" index="5" instance=ExtResource( 3 )]
+position = Vector2( 540, 138 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform2" index="4"]
+position = Vector2( 30, 1 )
+shape = SubResource( 6 )
+one_way_collision = true
+
+[node name="PressureButton" parent="OtherStuff/Highlighted" index="6" instance=ExtResource( 2 )]
+position = Vector2( 533, 120 )
+resetButtonPath = NodePath("../PressureButton2")
+
+[node name="PressureButton2" parent="OtherStuff/Highlighted" index="7" instance=ExtResource( 2 )]
+position = Vector2( 124, 120 )
+resetButtonPath = NodePath("../PressureButton")
+
+[node name="ReturnArea" parent="OtherStuff/Normal" index="0" instance=ExtResource( 6 )]
+position = Vector2( 320, 284 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Normal/ReturnArea" index="1"]
+shape = SubResource( 4 )
+
+[node name="Position2D" type="Position2D" parent="OtherStuff/Normal/ReturnArea" index="2"]
+position = Vector2( -196, -177 )
+
+[node name="Door" parent="OtherStuff/Normal" index="1" instance=ExtResource( 4 )]
+position = Vector2( 341, 147 )
+rotation = -1.57079
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton") ]
+
+[node name="Door2" parent="OtherStuff/Normal" index="2" instance=ExtResource( 4 )]
+position = Vector2( 140, 147 )
+rotation = -1.57079
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton2") ]
+
+[editable path="OtherStuff/Highlighted/Enemy"]
+[editable path="OtherStuff/Highlighted/Enemy2"]

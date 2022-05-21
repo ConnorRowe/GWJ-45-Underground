@@ -27,7 +27,7 @@ namespace Underground
         private Vector2 velocity = Vector2.Zero;
         private Vector2 externalVelocity = Vector2.Zero;
         private float gravity = 0;
-        private bool coyoteJump = true;
+        private bool coyoteJump = false;
         private float coyoteJumpTime = 0f;
         private bool inAirLastFrame = false;
         private float jumpMaxHeight = float.MaxValue;
@@ -40,6 +40,8 @@ namespace Underground
         private bool isHookTraveling = false;
         private const float HookTravelSpeed = 500f;
         private Sprite hookDirDisplay;
+        public Vector2 LastSolidPosition { get; private set; } = Vector2.Zero;
+        private Shaker bodyShaker;
 
         [Export]
         public bool InputLocked { get; set; } = false;
@@ -50,6 +52,10 @@ namespace Underground
         public Camera2D Camera2D { get; set; }
         [Export]
         public bool HasHook { get; set; } = true;
+        [Export]
+        public bool ForceShootHook { get; set; } = false;
+        [Export]
+        public Vector2 ForcedHookAngle { get; set; } = Vector2.Zero;
 
         public override void _Ready()
         {
@@ -68,6 +74,7 @@ namespace Underground
             debug = GetNode<Label>("debug");
             chainStartPos = chain.Position;
             hookDirDisplay = GetNode<Sprite>("HookDirDisplay");
+            bodyShaker = GetNode<Shaker>("Shaker");
 
             var c = GetNodeOrNull<Camera2D>("Camera2D");
             if (c != null)
@@ -121,10 +128,10 @@ namespace Underground
             bool isOnFloor = IsOnFloor();
             bool isTouchingSomething = isOnFloor || IsOnWall() || IsOnCeiling();
 
-            if (!InputLocked && HasHook && Input.IsActionJustPressed("shoot_hook"))
+            if ((!InputLocked && HasHook && Input.IsActionJustPressed("shoot_hook")) || (ForceShootHook && !isHookTraveling && !isHooked))
             {
                 var spaceState = GetWorld2d().DirectSpaceState;
-                var trace = spaceState.IntersectRay(hookDirDisplay.GlobalPosition, hookDirDisplay.GlobalPosition + (hookDirDisplay.GetLocalMousePosition().Normalized() * 400f), new Godot.Collections.Array() { this }, 1);
+                var trace = spaceState.IntersectRay(hookDirDisplay.GlobalPosition, hookDirDisplay.GlobalPosition + (ForceShootHook ? ForcedHookAngle * 1000f : (hookDirDisplay.GetLocalMousePosition().Normalized() * 1000f)), new Godot.Collections.Array() { this }, 1);
                 if (trace.Count > 0)
                 {
                     isHookTraveling = hook.Visible = chain.Visible = true;
@@ -134,7 +141,7 @@ namespace Underground
                 }
             }
 
-            if ((isHooked || isHookTraveling) && Input.IsActionJustReleased("shoot_hook"))
+            if ((isHooked || isHookTraveling) && (!InputLocked && Input.IsActionJustReleased("shoot_hook") || (InputLocked && !ForceShootHook)))
             {
                 isHooked = isHookTraveling = hook.Visible = chain.Visible = false;
                 chainloopPlayer.Stop();
@@ -202,6 +209,9 @@ namespace Underground
 
             isOnFloor = IsOnFloor();
 
+            if (isOnFloor)
+                LastSolidPosition = GlobalPosition;
+
             if (velocity.x > 0 && bodyParts.Scale.x < 0)
                 bodyParts.Scale = new Vector2(1, 1);
             else if (velocity.x < 0 && bodyParts.Scale.x > 0)
@@ -262,6 +272,7 @@ namespace Underground
                 {
                     GlobalNodes.CameraShake(Camera2D, fallDistance / 300f);
                     fallhitPlayer.Play();
+                    bodyShaker.Shake(fallDistance / 300f);
                 }
             }
 
@@ -325,6 +336,17 @@ namespace Underground
         public void AddExternalVelocity(Vector2 externalV)
         {
             externalVelocity += externalV;
+        }
+
+        public void HitSound()
+        {
+            fallhitPlayer.Play();
+        }
+
+        public void ForceCancelHook()
+        {
+            isHooked = isHookTraveling = hook.Visible = chain.Visible = false;
+            chainloopPlayer.Stop();
         }
     }
 }

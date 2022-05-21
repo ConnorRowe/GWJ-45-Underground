@@ -1,0 +1,197 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/Shaker.cs" type="Script" id=2]
+[ext_resource path="res://fonts/Normal.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/Enemy.cs" type="Script" id=4]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Alert"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ",", ".", "!", "'", "
+" ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Shaker")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 2.0 ],
+"method": "Shake"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ".,," ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "Charge"
+} ]
+}
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ",,," ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyParts/ShakePoint/Alert:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/ShakePoint/Eyebrows:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Walk"
+length = 0.35
+loop = true
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/ShakePoint/Legs:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.14, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ".,,", ",.,", ",,." ]
+}
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Walk"
+anims/Alert = SubResource( 3 )
+anims/RESET = SubResource( 1 )
+anims/Walk = SubResource( 2 )
+
+[node name="BodyParts" type="Node2D" parent="."]
+
+[node name="ShakePoint" type="Node2D" parent="BodyParts"]
+
+[node name="Face" type="Label" parent="BodyParts/ShakePoint"]
+margin_left = -18.0
+margin_top = -7.0
+margin_right = 22.0
+margin_bottom = 7.0
+custom_fonts/font = ExtResource( 1 )
+text = "('>')"
+
+[node name="Eyebrows" type="Label" parent="BodyParts/ShakePoint"]
+visible = false
+margin_left = -3.0
+margin_top = -16.0
+margin_right = 37.0
+margin_bottom = -2.0
+custom_fonts/font = ExtResource( 1 )
+text = "v"
+
+[node name="Legs" type="Label" parent="BodyParts/ShakePoint"]
+margin_left = -10.0
+margin_top = -3.0
+margin_right = 30.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 1 )
+text = ",,,"
+
+[node name="Alert" type="Label" parent="BodyParts/ShakePoint"]
+margin_left = -2.0
+margin_top = -21.0
+margin_right = 2.0
+margin_bottom = -5.0
+custom_fonts/font = ExtResource( 3 )
+align = 1
+
+[node name="Shaker" type="Node" parent="."]
+script = ExtResource( 2 )
+targetNode2DPath = NodePath("../BodyParts/ShakePoint")
+maxRotation = 0.3
+maxOffset = Vector2( 12, 6 )
+decay = 0.608
+
+[node name="PointA" type="Position2D" parent="."]
+__meta__ = {
+"_gizmo_extents_": 18.0
+}
+
+[node name="PointB" type="Position2D" parent="."]
+__meta__ = {
+"_gizmo_extents_": 18.0
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

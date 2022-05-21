@@ -12,8 +12,12 @@ namespace Underground
         private Node2D textHolder;
         private Label label;
         private Shaker shaker;
+        private PressureButton resetButton;
 
         public bool IsPressed { get; private set; } = false;
+
+        [Export]
+        private NodePath resetButtonPath = "";
 
         public override void _Ready()
         {
@@ -22,6 +26,9 @@ namespace Underground
             textHolder = GetNode<Node2D>("TextHolder");
             label = GetNode<Label>("TextHolder/Label");
             shaker = GetNode<Shaker>("Shaker");
+
+            if (!resetButtonPath.IsEmpty())
+                resetButton = GetNode<PressureButton>(resetButtonPath);
         }
 
         public void Press()
@@ -35,6 +42,22 @@ namespace Underground
             label.Text = "|)";
             GlobalNodes.SwitchClick();
             shaker.Shake(.5f);
+
+            resetButton?.Reset();
+
+            EmitSignal(nameof(IsPressedChanged));
+        }
+
+        private void Reset()
+        {
+            if (!IsPressed)
+                return;
+
+            IsPressed = false;
+            upCollider.Disabled = false;
+            pressedCollider.Disabled = true;
+            label.Text = "|D";
+            shaker.Shake(1f);
 
             EmitSignal(nameof(IsPressedChanged));
         }

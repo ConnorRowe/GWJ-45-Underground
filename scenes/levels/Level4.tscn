@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/levels/BaseTileMapLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/CrumblingPlatform.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/PressureButton.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 57, 14 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 30, 1.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 40, 1.5 )
+
+[node name="Level4" instance=ExtResource( 1 )]
+InitialColour = Color( 0.380392, 0.611765, 0.764706, 1 )
+HighlightColour = Color( 0.752941, 0.929412, 0.937255, 1 )
+nextLevelScene = "res://scenes/levels/Level5.tscn"
+levelNum = 4
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609, -196604, 0, 7, -131071, 0, 65539, -131068, 0, 65539, -65535, 0, 65539, -65532, 0, 65539, 0, 0, 4, 1, 0, 196615, 4, 0, 196612, 5, 0, 196609, 6, 0, 196609, 7, 0, 196609, 8, 0, 196609, 9, 0, 196609, 10, 0, 196609, 11, 0, 196609, 12, 0, 196609, 13, 0, 196609, 14, 0, 196609, 15, 0, 196609, 16, 0, 196609, 17, 0, 196609, 18, 0, 196609, 19, 0, 196609, 20, 0, 196609, 21, 0, 196609, 22, 0, 196609, 23, 0, 196609, 24, 0, 196609, 25, 0, 196609, 26, 0, 196609, 27, 0, 196609, 28, 0, 196609, 29, 0, 196609, 30, 0, 196609, 31, 0, 7, 65536, 0, 65539, 65567, 0, 65539, 131072, 0, 65539, 131103, 0, 65539, 196608, 0, 65539, 196639, 0, 65539, 262144, 0, 262148, 262145, 0, 196609, 262146, 0, 196609, 262147, 0, 196609, 262148, 0, 196609, 262149, 0, 196609, 262150, 0, 196609, 262151, 0, 7, 262173, 0, 196608, 262174, 0, 196609, 262175, 0, 262151, 327680, 0, 65539, 327687, 0, 65539, 327711, 0, 65539, 393216, 0, 65539, 393223, 0, 65539, 393247, 0, 65539, 458752, 0, 262148, 458753, 0, 196609, 458754, 0, 196610, 458757, 0, 196608, 458758, 0, 196609, 458759, 0, 262151, 458783, 0, 65539, 524288, 0, 65539, 524295, 0, 65539, 524319, 0, 65539, 589824, 0, 65539, 589831, 0, 65539, 589855, 0, 65539, 655360, 0, 65539, 655367, 0, 65539, 655391, 0, 65539, 720896, 0, 65539, 720903, 0, 65539, 720927, 0, 65539, 786432, 0, 262148, 786433, 0, 196610, 786438, 0, 196608, 786439, 0, 196615, 786463, 0, 65539, 851968, 0, 65539, 851999, 0, 65539, 917504, 0, 65539, 917535, 0, 65539, 983040, 0, 65539, 983071, 0, 65539, 1048576, 0, 65539, 1048607, 0, 65539, 1114112, 0, 196612, 1114113, 0, 196609, 1114114, 0, 196609, 1114115, 0, 196609, 1114116, 0, 196609, 1114117, 0, 196609, 1114118, 0, 196609, 1114119, 0, 196609, 1114120, 0, 196609, 1114121, 0, 196609, 1114122, 0, 196609, 1114123, 0, 196609, 1114124, 0, 196609, 1114125, 0, 196609, 1114126, 0, 196609, 1114127, 0, 196609, 1114128, 0, 196610, 1114133, 0, 196608, 1114134, 0, 196609, 1114135, 0, 196609, 1114136, 0, 196609, 1114137, 0, 196609, 1114138, 0, 196609, 1114139, 0, 196609, 1114140, 0, 196609, 1114141, 0, 196609, 1114142, 0, 196609, 1114143, 0, 196615 )
+
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="0"]
+position = Vector2( 378, 373 )
+
+[node name="CollisionShape2D" parent="OtherStuff/Highlighted/ExitArea" index="1"]
+shape = SubResource( 3 )
+
+[node name="CrumblingPlatform" parent="OtherStuff/Highlighted" index="1" instance=ExtResource( 2 )]
+position = Vector2( 440, 240 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform" index="4"]
+position = Vector2( 30, 1.5 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="CrumblingPlatform3" parent="OtherStuff/Highlighted" index="2" instance=ExtResource( 2 )]
+position = Vector2( 559, 160 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform3" index="4"]
+position = Vector2( 30, 1.5 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="CrumblingPlatform2" parent="OtherStuff/Highlighted" index="3" instance=ExtResource( 2 )]
+position = Vector2( 440, 80 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform2" index="4"]
+position = Vector2( 30, 1.5 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="CrumblingPlatform4" parent="OtherStuff/Highlighted" index="4" instance=ExtResource( 2 )]
+position = Vector2( 40, 236 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/CrumblingPlatform4" index="4"]
+position = Vector2( 40, 1.5 )
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="PressureButton" parent="OtherStuff/Highlighted" index="5" instance=ExtResource( 4 )]
+position = Vector2( 605, 80 )
+
+[node name="PressureButton2" parent="OtherStuff/Highlighted" index="6" instance=ExtResource( 4 )]
+position = Vector2( 123, 140 )
+
+[node name="Door" parent="OtherStuff/Normal" index="0" instance=ExtResource( 3 )]
+position = Vector2( 341, 357 )
+rotation = -1.57079
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton2") ]
+
+[node name="Door2" parent="OtherStuff/Normal" index="1" instance=ExtResource( 3 )]
+position = Vector2( 41, 259 )
+rotation = -1.57079
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton") ]

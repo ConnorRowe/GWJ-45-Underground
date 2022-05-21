@@ -36,7 +36,7 @@ namespace Underground
 
             foreach (Node node in GetNode("VBoxContainer").GetChildren())
             {
-                if (node is Control && !(node is Label))
+                if (node is Control && !(node is Label) && !(node is MyButton))
                     node.Connect("mouse_entered", GlobalNodes.INSTANCE, nameof(GlobalNodes.PlayUIClick));
             }
         }
@@ -74,5 +74,14 @@ namespace Underground
 
         private void SetFullscreen(bool fs) => OS.WindowFullscreen = fs;
         private void SetCamShake(bool cs) => GlobalNodes.DisableCameraShake = cs;
+
+        public void SetColours(Color normal, Color highlight)
+        {
+            GetNode("VBoxContainer/Label").Set("custom_colors/font_color", highlight);
+            GetNode("VBoxContainer/Label2").Set("custom_colors/font_color", highlight);
+            GetNode("VBoxContainer/Label3").Set("custom_colors/font_color", highlight);
+            fullscreen.Modulate = highlight;
+            camShake.Modulate = highlight;
+        }
     }
 }

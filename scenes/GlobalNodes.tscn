@@ -37,7 +37,7 @@ bus = "SFX"
 
 [node name="Boing" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 2 )
-volume_db = -12.359
+volume_db = -10.753
 bus = "SFX"
 
 [node name="SwitchClick" type="AudioStreamPlayer" parent="."]
@@ -47,7 +47,7 @@ bus = "SFX"
 
 [node name="Pop" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 4 )
-volume_db = -12.322
+volume_db = -9.913
 bus = "SFX"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

@@ -1,18 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scenes/BaseLevel.cs" type="Script" id=1]
+[ext_resource path="res://scenes/TileMapLevel.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Normal.tres" type="DynamicFont" id=2]
 [ext_resource path="res://tileset/tileset_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://fonts/Bold.tres" type="DynamicFont" id=5]
 [ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=6]
 [ext_resource path="res://audio/music/track_1.ogg" type="AudioStream" id=7]
-[ext_resource path="res://fonts/BoldLarge.tres" type="DynamicFont" id=8]
-[ext_resource path="res://textures/button_typeA.png" type="Texture" id=9]
-[ext_resource path="res://scenes/menus/ButtonA.tscn" type="PackedScene" id=10]
-[ext_resource path="res://default_theme.theme" type="Theme" id=11]
-[ext_resource path="res://scenes/menus/Settings.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/levels/PausePopup.cs" type="Script" id=13]
+[ext_resource path="res://scenes/levels/PausePopup.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=3]
 resource_name = "FadeIn"
@@ -133,20 +128,6 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 17, 14 )
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.192157, 0.133333, 0.172549, 1 )
-
-[sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 9 )
-region_rect = Rect2( 0, 0, 18, 33 )
-margin_left = 8.0
-margin_right = 8.0
-margin_top = 4.0
-margin_bottom = 5.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-draw_center = false
-
 [node name="TestLevel" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
@@ -212,11 +193,7 @@ text = "=>"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OtherStuff/Highlighted/ExitArea"]
 shape = SubResource( 5 )
 
-[node name="Normal" type="Node2D" parent="OtherStuff"]
-
-[node name="Overlay" type="CanvasLayer" parent="."]
-
-[node name="SpeechBox" type="RichTextLabel" parent="Overlay"]
+[node name="SpeechBox" type="RichTextLabel" parent="OtherStuff/Highlighted"]
 margin_left = 9.0
 margin_top = 287.0
 margin_right = 315.0
@@ -227,70 +204,11 @@ custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 visible_characters = 0
 
-[node name="PausePopup" type="PopupPanel" parent="Overlay"]
-pause_mode = 2
-margin_left = 149.0
-margin_top = 42.0
-margin_right = 455.0
-margin_bottom = 292.0
-theme = ExtResource( 11 )
-custom_styles/panel = SubResource( 7 )
-popup_exclusive = true
-script = ExtResource( 13 )
+[node name="Normal" type="Node2D" parent="OtherStuff"]
 
-[node name="Panel" type="Panel" parent="Overlay/PausePopup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 8 )
+[node name="Overlay" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Overlay/PausePopup/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Label" type="Label" parent="Overlay/PausePopup/Panel/VBoxContainer"]
-margin_right = 306.0
-margin_bottom = 32.0
-custom_fonts/font = ExtResource( 8 )
-text = "Paused"
-align = 1
-
-[node name="Settings" parent="Overlay/PausePopup/Panel/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 36.0
-margin_right = 306.0
-margin_bottom = 209.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Overlay/PausePopup/Panel/VBoxContainer"]
-margin_top = 213.0
-margin_right = 306.0
-margin_bottom = 250.0
-size_flags_vertical = 10
-custom_constants/margin_right = 0
-custom_constants/margin_top = 6
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 6
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Overlay/PausePopup/Panel/VBoxContainer/MarginContainer"]
-margin_top = 6.0
-margin_right = 306.0
-margin_bottom = 31.0
-
-[node name="Exit" parent="Overlay/PausePopup/Panel/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 10 )]
-margin_left = 15.0
-margin_top = 0.0
-margin_right = 132.0
-margin_bottom = 25.0
-size_flags_horizontal = 6
-size_flags_vertical = 10
-text = "Exit To Main Menu"
-
-[node name="Return" parent="Overlay/PausePopup/Panel/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource( 10 )]
-margin_left = 173.0
-margin_top = 0.0
-margin_right = 290.0
-margin_bottom = 25.0
-size_flags_horizontal = 6
-size_flags_vertical = 10
-text = "Exit To Main Menu"
+[node name="PausePopup" parent="Overlay" instance=ExtResource( 8 )]
 
 [node name="ColorRect" type="ColorRect" parent="Overlay"]
 margin_right = 640.0

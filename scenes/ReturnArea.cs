@@ -32,7 +32,7 @@ namespace Underground
                 AddChild(tween);
 
                 if (returnPosition2D == null)
-                    GD.PrintErr($"{Name} has no target Position2D. Add one to it!");
+                    GD.Print($"{Name} has no target Position2D. Will use Character.LastSolidPosition!");
             }
         }
 
@@ -44,8 +44,9 @@ namespace Underground
                 GlobalNodes.Boing();
 
                 c.InputLocked = c.AnimLocked = true;
+                c.ForceCancelHook();
 
-                tween.InterpolateProperty(c, "global_position", c.GlobalPosition, returnPosition2D.GlobalPosition, 2f, Tween.TransitionType.Cubic, Tween.EaseType.InOut);
+                tween.InterpolateProperty(c, "global_position", c.GlobalPosition, returnPosition2D != null ? returnPosition2D.GlobalPosition : c.LastSolidPosition, 2f, Tween.TransitionType.Cubic, Tween.EaseType.InOut);
                 tween.InterpolateProperty(c, "rotation_degrees", 0f, -720, 2f, Tween.TransitionType.Sine, Tween.EaseType.InOut);
                 tween.InterpolateCallback(c, 2f, "set", nameof(c.InputLocked), false);
                 tween.InterpolateCallback(c, 2f, "set", nameof(c.AnimLocked), false);

@@ -23,6 +23,7 @@ extents = Vector2( 89, 1.5 )
 InitialColour = Color( 0.345098, 0.188235, 0.482353, 1 )
 HighlightColour = Color( 0.596078, 0.25098, 0.443137, 1 )
 nextLevelScene = "res://scenes/levels/Level2.tscn"
+levelNum = 1
 
 [node name="Character" parent="." index="1"]
 HasHook = false
@@ -84,6 +85,12 @@ position = Vector2( 761, 164 )
 position = Vector2( 89, 1.5 )
 shape = SubResource( 7 )
 one_way_collision = true
+
+[node name="SpeechBox" parent="OtherStuff/Highlighted" index="4"]
+margin_left = 470.0
+margin_top = 235.0
+margin_right = 635.0
+margin_bottom = 351.0
 
 [node name="RandomClutter" parent="OtherStuff/Normal" index="0" instance=ExtResource( 6 )]
 position = Vector2( 65, 240 )
