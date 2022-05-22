@@ -13,11 +13,16 @@ namespace Underground
         private Label label;
         private Shaker shaker;
         private PressureButton resetButton;
+        private System.Collections.Generic.List<PressureButton> resetButtons = new System.Collections.Generic.List<PressureButton>();
 
         public bool IsPressed { get; private set; } = false;
 
         [Export]
         private NodePath resetButtonPath = "";
+        [Export]
+        private Godot.Collections.Array<NodePath> resetButtonsPaths = new Godot.Collections.Array<NodePath>();
+        [Export]
+        private bool StartPressed { get; set; } = false;
 
         public override void _Ready()
         {
@@ -29,6 +34,14 @@ namespace Underground
 
             if (!resetButtonPath.IsEmpty())
                 resetButton = GetNode<PressureButton>(resetButtonPath);
+
+            foreach (var path in resetButtonsPaths)
+            {
+                resetButtons.Add(GetNode<PressureButton>(path));
+            }
+
+            if (StartPressed)
+                Press();
         }
 
         public void Press()
@@ -44,6 +57,8 @@ namespace Underground
             shaker.Shake(.5f);
 
             resetButton?.Reset();
+            foreach (var btn in resetButtons)
+                btn.Reset();
 
             EmitSignal(nameof(IsPressedChanged));
         }

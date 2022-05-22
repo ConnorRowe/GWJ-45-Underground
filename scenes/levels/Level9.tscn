@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/levels/BaseTileMapLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/PressureButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/SpeechArea2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/RandomClutter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 12 )
+
+[node name="Level9" instance=ExtResource( 1 )]
+InitialColour = Color( 0.545098, 0.486275, 0.6, 1 )
+HighlightColour = Color( 0.823529, 0.823529, 0.729412, 1 )
+nextLevelScene = "res://scenes/levels/Level10.tscn"
+levelNum = 9
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609, -196604, 0, 7, -131071, 0, 65539, -131068, 0, 65539, -65535, 0, 65539, -65532, 0, 65539, 0, 0, 0, 1, 0, 131079, 4, 0, 196612, 5, 0, 6, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 16, 0, 1, 17, 0, 1, 18, 0, 1, 19, 0, 1, 20, 0, 1, 21, 0, 1, 22, 0, 1, 23, 0, 1, 24, 0, 1, 25, 0, 1, 26, 0, 1, 27, 0, 1, 28, 0, 1, 29, 0, 1, 30, 0, 1, 31, 0, 2, 65536, 0, 65536, 65537, 0, 65538, 65541, 0, 131072, 65542, 0, 131073, 65543, 0, 65542, 65544, 0, 65541, 65545, 0, 131073, 65546, 0, 131073, 65547, 0, 131073, 65548, 0, 131073, 65549, 0, 131073, 65550, 0, 131073, 65551, 0, 131073, 65552, 0, 131073, 65553, 0, 131073, 65554, 0, 131073, 65555, 0, 65542, 65556, 0, 65537, 65557, 0, 65537, 65558, 0, 65537, 65559, 0, 65537, 65560, 0, 65537, 65561, 0, 65537, 65562, 0, 65537, 65563, 0, 65537, 65564, 0, 65537, 65565, 0, 65537, 65566, 0, 65537, 65567, 0, 65538, 131072, 0, 65536, 131073, 0, 65538, 131079, 0, 131072, 131080, 0, 131074, 131091, 0, 131072, 131092, 0, 65542, 131093, 0, 65537, 131094, 0, 65537, 131095, 0, 65537, 131096, 0, 65537, 131097, 0, 65537, 131098, 0, 65537, 131099, 0, 65537, 131100, 0, 65537, 131101, 0, 65537, 131102, 0, 65537, 131103, 0, 65538, 196608, 0, 65536, 196609, 0, 65538, 196617, 0, 196611, 196626, 0, 196611, 196628, 0, 65536, 196629, 0, 65537, 196630, 0, 65537, 196631, 0, 65537, 196632, 0, 65537, 196633, 0, 65537, 196634, 0, 65537, 196635, 0, 65537, 196636, 0, 65537, 196637, 0, 65537, 196638, 0, 65537, 196639, 0, 65538, 262144, 0, 65540, 262145, 0, 131074, 262154, 0, 196611, 262161, 0, 196611, 262164, 0, 65536, 262165, 0, 65537, 262166, 0, 65537, 262167, 0, 65537, 262168, 0, 65537, 262169, 0, 65537, 262170, 0, 65537, 262171, 0, 65537, 262172, 0, 65537, 262173, 0, 65537, 262174, 0, 65537, 262175, 0, 65538, 327680, 0, 65539, 327691, 0, 196611, 327696, 0, 196611, 327700, 0, 65536, 327701, 0, 65537, 327702, 0, 65537, 327703, 0, 65537, 327704, 0, 65537, 327705, 0, 65537, 327706, 0, 65537, 327707, 0, 65537, 327708, 0, 65537, 327709, 0, 65537, 327710, 0, 65537, 327711, 0, 65538, 393216, 0, 65539, 393236, 0, 65536, 393237, 0, 65537, 393238, 0, 65537, 393239, 0, 65537, 393240, 0, 65537, 393241, 0, 65537, 393242, 0, 65537, 393243, 0, 65537, 393244, 0, 65537, 393245, 0, 65537, 393246, 0, 65537, 393247, 0, 65538, 458752, 0, 65539, 458772, 0, 65536, 458773, 0, 65537, 458774, 0, 65537, 458775, 0, 65537, 458776, 0, 65537, 458777, 0, 65537, 458778, 0, 65537, 458779, 0, 65537, 458780, 0, 65537, 458781, 0, 65537, 458782, 0, 65537, 458783, 0, 65538, 524288, 0, 65539, 524308, 0, 65536, 524309, 0, 65537, 524310, 0, 65537, 524311, 0, 65537, 524312, 0, 65537, 524313, 0, 65537, 524314, 0, 65537, 524315, 0, 65537, 524316, 0, 65537, 524317, 0, 65537, 524318, 0, 65537, 524319, 0, 65538, 589824, 0, 131076, 589825, 0, 2, 589844, 0, 65536, 589845, 0, 65537, 589846, 0, 65537, 589847, 0, 65537, 589848, 0, 65537, 589849, 0, 65537, 589850, 0, 65537, 589851, 0, 65537, 589852, 0, 65537, 589853, 0, 65537, 589854, 0, 65537, 589855, 0, 65538, 655360, 0, 65536, 655361, 0, 65538, 655371, 0, 196611, 655376, 0, 196611, 655380, 0, 65536, 655381, 0, 65537, 655382, 0, 65537, 655383, 0, 65537, 655384, 0, 65537, 655385, 0, 65537, 655386, 0, 65537, 655387, 0, 65537, 655388, 0, 65537, 655389, 0, 65537, 655390, 0, 65537, 655391, 0, 65538, 720896, 0, 65536, 720897, 0, 65538, 720906, 0, 196611, 720913, 0, 196611, 720916, 0, 65536, 720917, 0, 65537, 720918, 0, 65537, 720919, 0, 65537, 720920, 0, 65537, 720921, 0, 65537, 720922, 0, 65537, 720923, 0, 65537, 720924, 0, 65537, 720925, 0, 65537, 720926, 0, 65537, 720927, 0, 65538, 786432, 0, 65536, 786433, 0, 65538, 786441, 0, 196611, 786450, 0, 196611, 786452, 0, 65536, 786453, 0, 65537, 786454, 0, 65537, 786455, 0, 65537, 786456, 0, 65537, 786457, 0, 65537, 786458, 0, 65537, 786459, 0, 65537, 786460, 0, 65537, 786461, 0, 65537, 786462, 0, 65537, 786463, 0, 65538, 851968, 0, 65536, 851969, 0, 131077, 851970, 0, 1, 851971, 0, 1, 851972, 0, 1, 851973, 0, 1, 851974, 0, 1, 851975, 0, 1, 851976, 0, 2, 851987, 0, 0, 851988, 0, 131078, 851989, 0, 65537, 851990, 0, 65537, 851991, 0, 65537, 851992, 0, 65537, 851993, 0, 65537, 851994, 0, 65537, 851995, 0, 65537, 851996, 0, 65537, 851997, 0, 65537, 851998, 0, 65537, 851999, 0, 65538, 917504, 0, 65536, 917505, 0, 65537, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 131077, 917513, 0, 1, 917514, 0, 1, 917515, 0, 1, 917516, 0, 2, 917519, 0, 196608, 917520, 0, 196609, 917521, 0, 196609, 917522, 0, 196609, 917523, 0, 196614, 917524, 0, 131073, 917525, 0, 131073, 917526, 0, 131073, 917527, 0, 131073, 917528, 0, 131073, 917529, 0, 131073, 917530, 0, 131073, 917531, 0, 131073, 917532, 0, 131073, 917533, 0, 131073, 917534, 0, 131073, 917535, 0, 65543, 983040, 0, 65536, 983041, 0, 65537, 983042, 0, 65537, 983043, 0, 65537, 983044, 0, 65537, 983045, 0, 65537, 983046, 0, 65537, 983047, 0, 65537, 983048, 0, 65537, 983049, 0, 65537, 983050, 0, 65537, 983051, 0, 65537, 983052, 0, 65538, 983071, 0, 65539, 1048576, 0, 65536, 1048577, 0, 65537, 1048578, 0, 65537, 1048579, 0, 65537, 1048580, 0, 65537, 1048581, 0, 65537, 1048582, 0, 65537, 1048583, 0, 65537, 1048584, 0, 65537, 1048585, 0, 65537, 1048586, 0, 65537, 1048587, 0, 65537, 1048588, 0, 65538, 1048607, 0, 65539, 1114112, 0, 131072, 1114113, 0, 131073, 1114114, 0, 131073, 1114115, 0, 131073, 1114116, 0, 131073, 1114117, 0, 131073, 1114118, 0, 131073, 1114119, 0, 131073, 1114120, 0, 131073, 1114121, 0, 131073, 1114122, 0, 131073, 1114123, 0, 131073, 1114124, 0, 196613, 1114125, 0, 196609, 1114126, 0, 196609, 1114127, 0, 196609, 1114128, 0, 196609, 1114129, 0, 196609, 1114130, 0, 196609, 1114131, 0, 196609, 1114132, 0, 196609, 1114133, 0, 196609, 1114134, 0, 196609, 1114135, 0, 196609, 1114136, 0, 196609, 1114137, 0, 196609, 1114138, 0, 196609, 1114139, 0, 196609, 1114140, 0, 196609, 1114141, 0, 196609, 1114142, 0, 196609, 1114143, 0, 196615 )
+
+[node name="SpeechArea2D" parent="SpeechTriggers" index="0" instance=ExtResource( 4 )]
+position = Vector2( 62, 260 )
+Speech = "Remember, the reset button is 'input={reload_level}'!"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeechTriggers/SpeechArea2D" index="2"]
+position = Vector2( 1, -11 )
+shape = SubResource( 1 )
+
+[node name="ExitArea" parent="OtherStuff/Highlighted" index="0"]
+position = Vector2( 563, 326 )
+
+[node name="SpeechBox" parent="OtherStuff/Highlighted" index="1"]
+margin_left = 41.0
+margin_top = 271.0
+margin_right = 171.0
+margin_bottom = 343.0
+
+[node name="PressureButton" parent="OtherStuff/Highlighted" index="2" instance=ExtResource( 3 )]
+position = Vector2( 160, 260 )
+resetButtonPath = NodePath("../PressureButton5")
+
+[node name="PressureButton2" parent="OtherStuff/Highlighted" index="3" instance=ExtResource( 3 )]
+position = Vector2( 230, 100 )
+resetButtonPath = NodePath("../PressureButton6")
+
+[node name="PressureButton3" parent="OtherStuff/Highlighted" index="4" instance=ExtResource( 3 )]
+position = Vector2( 331, 100 )
+resetButtonPath = NodePath("../PressureButton6")
+
+[node name="PressureButton4" parent="OtherStuff/Highlighted" index="5" instance=ExtResource( 3 )]
+position = Vector2( 391, 260 )
+resetButtonPath = NodePath("../PressureButton")
+
+[node name="PressureButton5" parent="OtherStuff/Highlighted" index="6" instance=ExtResource( 3 )]
+position = Vector2( 209, 220 )
+resetButtonPath = NodePath("../PressureButton")
+
+[node name="PressureButton6" parent="OtherStuff/Highlighted" index="7" instance=ExtResource( 3 )]
+position = Vector2( 350, 80 )
+
+[node name="Enemy" parent="OtherStuff/Highlighted" index="8" instance=ExtResource( 6 )]
+position = Vector2( 449, 331 )
+
+[node name="PointA" parent="OtherStuff/Highlighted/Enemy" index="3"]
+position = Vector2( -171, 0 )
+
+[node name="PointB" parent="OtherStuff/Highlighted/Enemy" index="4"]
+position = Vector2( 153, 0 )
+
+[node name="Door" parent="OtherStuff/Normal" index="0" instance=ExtResource( 2 )]
+position = Vector2( 220, 122 )
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton") ]
+
+[node name="Door2" parent="OtherStuff/Normal" index="1" instance=ExtResource( 2 )]
+position = Vector2( 318, 100 )
+rotation = 1.57079
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton5") ]
+
+[node name="Door3" parent="OtherStuff/Normal" index="2" instance=ExtResource( 2 )]
+position = Vector2( 341, 199 )
+rotation = 3.14159
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton3") ]
+
+[node name="Door4" parent="OtherStuff/Normal" index="3" instance=ExtResource( 2 )]
+position = Vector2( 241, 219 )
+rotation = 4.71238
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton2"), NodePath("../../Highlighted/PressureButton4") ]
+
+[node name="Door5" parent="OtherStuff/Normal" index="4" instance=ExtResource( 2 )]
+position = Vector2( 318, 212 )
+rotation = 7.85397
+triggerButtonsPaths = [ NodePath("../../Highlighted/PressureButton6") ]
+
+[node name="RandomClutter" parent="OtherStuff/Normal" index="5" instance=ExtResource( 5 )]
+position = Vector2( 28, 180 )
+
+[node name="RandomClutter2" parent="OtherStuff/Normal" index="6" instance=ExtResource( 5 )]
+position = Vector2( 206, 279 )
+
+[node name="RandomClutter3" parent="OtherStuff/Normal" index="7" instance=ExtResource( 5 )]
+position = Vector2( 372, 279 )
+
+[node name="RandomClutter4" parent="OtherStuff/Normal" index="8" instance=ExtResource( 5 )]
+position = Vector2( 372, 339 )
+
+[node name="RandomClutter5" parent="OtherStuff/Normal" index="9" instance=ExtResource( 5 )]
+position = Vector2( 522, 339 )
+
+[node name="RandomClutter6" parent="OtherStuff/Normal" index="10" instance=ExtResource( 5 )]
+position = Vector2( 454, 300 )
+rotation = 3.14159
+
+[editable path="OtherStuff/Highlighted/Enemy"]

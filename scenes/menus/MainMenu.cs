@@ -80,6 +80,10 @@ namespace Underground
                 if (levelData.Number == maxLevel)
                     pulseButton = btn;
             }
+
+            GetNode("Section_Title/VBoxContainer/Node2D/TitleShaker/Title").Connect("mouse_entered", this, nameof(TitleHovered));
+
+            GetNode("Section_Title/Control/Credit").Connect("meta_clicked", this, nameof(CreditMetaClicked));
         }
 
         public override void _Input(InputEvent evt)
@@ -139,7 +143,7 @@ namespace Underground
             button.Modulate = new Color("e64e4b");
         }
 
-        private string GetInputEventString(InputEvent evt)
+        public static string GetInputEventString(InputEvent evt)
         {
             if (evt != null)
             {
@@ -165,6 +169,22 @@ namespace Underground
             }
 
             return "...";
+        }
+
+        public static string ReplaceInputTags(string str)
+        {
+            int foundin = 0;
+            string s = str;
+            while ((foundin = s.Find("input={", foundin)) > -1)
+            {
+                int end = s.Find("}", foundin);
+                string action = s.Substr(foundin + 7, end - foundin - 7);
+                s = s.Remove(foundin, end - foundin + 1);
+                string human = MainMenu.GetInputEventString((InputEvent)InputMap.GetActionList(action)[0]);
+                s = s.Insert(foundin, human);
+            }
+
+            return s;
         }
 
         private void ReturnToDefaults()
@@ -237,6 +257,20 @@ namespace Underground
                 Action = action,
                 Pressed = pressed
             });
+        }
+
+        private void TitleHovered()
+        {
+            GlobalNodes.Boing();
+            GetNode<Shaker>("Section_Title/VBoxContainer/Node2D/TitleShaker/Shaker").Shake(5);
+        }
+
+        private void CreditMetaClicked(object meta)
+        {
+            if (meta is string str)
+            {
+                OS.ShellOpen(str);
+            }
         }
     }
 }

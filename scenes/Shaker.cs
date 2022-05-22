@@ -54,14 +54,14 @@ namespace Underground
                     offset.x = maxOffset.x * amount * noise.GetNoise2d(noise.Seed * 2, noiseY);
                     offset.y = maxOffset.y * amount * noise.GetNoise2d(noise.Seed * 3, noiseY);
 
-                    if (target != null)
+                    if (IsInstanceValid(target))
                         target.Rotation = r;
 
-                    if (targetCamera != null)
+                    if (IsInstanceValid(targetCamera))
                         targetCamera.Offset = offset;
-                    else if (targetControl != null)
+                    else if (IsInstanceValid(targetControl))
                         targetControl.RectRotation = r;
-                    else if (target != null)
+                    else if (IsInstanceValid(target))
                         target.Position = offset;
                 }
             }

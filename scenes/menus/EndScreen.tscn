@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/Shaker.cs" type="Script" id=1]
+[ext_resource path="res://fonts/ConsFontBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://textures/button_typeA.png" type="Texture" id=3]
+[ext_resource path="res://fonts/ConsFont_v2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scenes/menus/ButtonB.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/EndScreen.cs" type="Script" id=7]
+[ext_resource path="res://audio/pickup_hook.wav" type="AudioStream" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 18, 33 )
+margin_left = 8.0
+margin_right = 8.0
+margin_top = 4.0
+margin_bottom = 5.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+draw_center = false
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 4 )
+
+[node name="EndScreen" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 640.0
+margin_bottom = 360.0
+color = Color( 0.192157, 0.133333, 0.172549, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TitleHolder" type="Node2D" parent="."]
+modulate = Color( 0.956863, 0.611765, 0.682353, 1 )
+position = Vector2( 320, 26 )
+
+[node name="Title" type="Node2D" parent="TitleHolder"]
+
+[node name="Label" type="Label" parent="TitleHolder/Title"]
+margin_left = -78.0
+margin_top = -24.0
+margin_right = 78.0
+margin_bottom = 24.0
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "The End"
+
+[node name="Shaker" type="Node" parent="TitleHolder/Title"]
+script = ExtResource( 1 )
+targetNode2DPath = NodePath("..")
+maxRotation = 1.0
+
+[node name="StarHolder" type="Node2D" parent="."]
+modulate = Color( 0.866667, 0.541176, 0.356863, 1 )
+position = Vector2( 161, 270 )
+
+[node name="Star" type="Node2D" parent="StarHolder"]
+
+[node name="Label" type="Label" parent="StarHolder/Star"]
+margin_left = -68.0
+margin_top = -52.0
+margin_right = 68.0
+margin_bottom = 65.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 5 )
+text = "       ,O,
+      ,OOO,
+'oooooOOOOOooooo'
+  `OOOOOOOOOOO`
+    `OOOOOOO`
+    OOOO'OOOO
+   OOO'   'OOO
+  O'         'O"
+
+[node name="Shaker" type="Node" parent="StarHolder/Star"]
+script = ExtResource( 1 )
+targetNode2DPath = NodePath("..")
+maxRotation = 1.0
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color( 0.415686, 0.360784, 0.615686, 1 )
+margin_left = 74.0
+margin_top = 54.0
+margin_right = 564.0
+margin_bottom = 294.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 9 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Panel/MarginContainer"]
+modulate = Color( 0.956863, 0.611765, 0.682353, 1 )
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 482.0
+margin_bottom = 232.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 10 )
+text = "Congratulations! You have completed subsuburban! I hope you had fun. Thanks for playing all the way to the end, you deserve a gold star. 
+
+                              - Connor ('< ' )"
+align = 3
+autowrap = true
+
+[node name="ReturnButton" parent="." instance=ExtResource( 6 )]
+modulate = Color( 0.415686, 0.360784, 0.615686, 1 )
+margin_left = 255.0
+margin_top = 302.0
+margin_right = 392.0
+margin_bottom = 349.0
+text = "Return"
+
+[node name="Overlay" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 640.0
+margin_bottom = 360.0
+mouse_filter = 2
+color = Color( 0.192157, 0.133333, 0.172549, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
+bus = "SFX"

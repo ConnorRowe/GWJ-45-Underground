@@ -18,6 +18,8 @@ namespace Underground
             shaker = GetNode<Shaker>("Shaker");
             label = GetNode<Label>("Sprite/Label");
             Connect("body_entered", this, nameof(BodyEntered));
+
+            Speech = MainMenu.ReplaceInputTags(Speech);
         }
 
         private void BodyEntered(Node node)

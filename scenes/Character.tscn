@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://fonts/Normal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/Character.cs" type="Script" id=2]
@@ -542,6 +542,106 @@ tracks/20/keys = {
 "values": [ Vector2( 6, 16 ) ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "SleepyTime"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/TorsoBone/HeadBone/Eyes:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "- -" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyParts/TorsoBone/HeadBone/Eyes:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( -7, -16 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/TorsoBone/HeadBone/Hair:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "“" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyParts/TorsoBone/HeadBone/Mouth:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "l" ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BodyParts/TorsoBone/HeadBone:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0, -11 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BodyParts/TorsoBone/HeadBone/Hair:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( -4, -16 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("BodyParts:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath(".:AnimLocked")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [sub_resource type="AudioStreamRandomPitch" id=10]
 audio_stream = ExtResource( 4 )
 random_pitch = 1.25
@@ -1031,6 +1131,7 @@ autoplay = "Idle"
 anims/Fall = SubResource( 12 )
 anims/Idle = SubResource( 5 )
 anims/RESET = SubResource( 2 )
+anims/SleepyTime = SubResource( 15 )
 anims/WakeUp = SubResource( 7 )
 anims/Walk = SubResource( 3 )
 

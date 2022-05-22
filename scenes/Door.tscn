@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Door.cs" type="Script" id=1]
 [ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://audio/door.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Close"
@@ -13,9 +14,23 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 2, 0.5 ),
+"transitions": PoolRealArray( -2, 0.5 ),
 "update": 0,
 "values": [ Vector2( 0, -77 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -28,9 +43,23 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 2, 0.5 ),
+"transitions": PoolRealArray( -2, 0.5 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -77 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -50,6 +79,9 @@ tracks/0/keys = {
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 38.5 )
+
+[sub_resource type="AudioStreamRandomPitch" id=5]
+audio_stream = ExtResource( 3 )
 
 [node name="Door" type="Node2D"]
 script = ExtResource( 1 )
@@ -77,3 +109,10 @@ text = "._.
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 12, 38.5 )
 shape = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource( 5 )
+volume_db = -3.424
+pitch_scale = 0.92
+attenuation = 0.615572
+bus = "SFX_Reverb"

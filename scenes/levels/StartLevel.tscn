@@ -863,6 +863,78 @@ tracks/19/keys = {
 "update": 0,
 "values": [ 0.168 ]
 }
+tracks/20/type = "value"
+tracks/20/path = NodePath("../Character:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.227451, 0.203922, 0.529412, 1 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("../DownstairsScene/StaticBody2D:collision_layer")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("../DownstairsScene/StaticBody2D:collision_mask")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("../Character:ForceShootHook")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("../Character:ForcedHookAngle")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("../Character/HookDirDisplay:modulate")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 10, 27.5 )
@@ -913,11 +985,17 @@ margin_bottom = 360.0
 color = Color( 0.192157, 0.133333, 0.172549, 1 )
 
 [node name="Character" parent="." instance=ExtResource( 2 )]
-modulate = Color( 0.227451, 0.203922, 0.529412, 0 )
+modulate = Color( 0.227451, 0.203922, 0.529412, 1 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 103, 241 )
 z_index = -1
 HasHook = false
+
+[node name="Shaker" parent="Character" index="3"]
+decay = 0.168
+
+[node name="HookDirDisplay" parent="Character" index="11"]
+modulate = Color( 1, 1, 1, 0 )
 
 [node name="HouseScene" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -1036,15 +1114,16 @@ bus = "SFX"
 [node name="ControlsInfo" type="RichTextLabel" parent="BedroomScene"]
 margin_left = 120.0
 margin_top = -66.0
-margin_right = 412.0
-margin_bottom = -21.0
+margin_right = 443.0
+margin_bottom = -15.0
 custom_colors/default_color = Color( 0.227451, 0.203922, 0.529412, 1 )
 custom_fonts/normal_font = ExtResource( 6 )
 bbcode_enabled = true
-bbcode_text = "[wave amp=30 freq=3]Move with A and D
-                         Jump with spacebar or W"
-text = "[wave amp=30 freq=3]Move with A and D
-                         Jump with spacebar or W"
+bbcode_text = "[wave amp=30 freq=3]Move with input={move_left} and input={move_right}
+                         Jump with input={jump}"
+text = "[wave amp=30 freq=3]Move with input={move_left} and input={move_right}
+                         Jump with input={jump}"
+scroll_active = false
 
 [node name="ExclaimExplosion" parent="BedroomScene" instance=ExtResource( 8 )]
 visible = false

@@ -30,7 +30,7 @@ namespace Underground
 
         private static Tween tween;
 
-        public static LevelData[] Levels { get; private set; } = new LevelData[9]
+        public static LevelData[] Levels { get; private set; } = new LevelData[14]
         {
             LoadLevelData("res://scenes/levels/StartLevel.tscn"),
             LoadLevelData("res://scenes/levels/Level1.tscn"),
@@ -41,6 +41,11 @@ namespace Underground
             LoadLevelData("res://scenes/levels/Level6.tscn"),
             LoadLevelData("res://scenes/levels/Level7.tscn"),
             LoadLevelData("res://scenes/levels/Level8.tscn"),
+            LoadLevelData("res://scenes/levels/Level9.tscn"),
+            LoadLevelData("res://scenes/levels/Level10.tscn"),
+            LoadLevelData("res://scenes/levels/Level11.tscn"),
+            LoadLevelData("res://scenes/levels/Level12.tscn"),
+            LoadLevelData("res://scenes/levels/EndLevel.tscn")
         };
 
         public override void _Ready()
@@ -80,7 +85,6 @@ namespace Underground
         }
 
         public static void UIClick() => uiClick.Play();
-        public void PlayUIClick() => uiClick.Play();
         public static void Boing() => boing.Play();
         public static void SwitchClick() => switchClick.Play();
         public static void Pop() => pop.Play();

@@ -31,7 +31,7 @@ tile_data = PoolIntArray( -196607, 0, 4, -196606, 0, 196609, -196605, 0, 196609,
 position = Vector2( 383, 340 )
 Speech = "[b]How to use the grappling hook:[/b]
 
-Aim with the mouse, and shoot it with left click.  
+Aim with the mouse, and shoot it with input={shoot_hook}.  
 
 The little circle around you shows your aiming direction.
 

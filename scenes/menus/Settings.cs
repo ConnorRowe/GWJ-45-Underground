@@ -37,7 +37,7 @@ namespace Underground
             foreach (Node node in GetNode("VBoxContainer").GetChildren())
             {
                 if (node is Control && !(node is Label) && !(node is MyButton))
-                    node.Connect("mouse_entered", GlobalNodes.INSTANCE, nameof(GlobalNodes.PlayUIClick));
+                    node.Connect("mouse_entered", GlobalNodes.INSTANCE, nameof(GlobalNodes.UIClick));
             }
         }
 

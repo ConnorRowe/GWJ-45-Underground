@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://fonts/Bold.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/menus/ButtonB.tscn" type="PackedScene" id=2]
@@ -6,11 +6,12 @@
 [ext_resource path="res://default_theme.theme" type="Theme" id=4]
 [ext_resource path="res://fonts/BoldLarge.tres" type="DynamicFont" id=5]
 [ext_resource path="res://scenes/menus/Settings.tscn" type="PackedScene" id=6]
-[ext_resource path="res://fonts/ConsFontBold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://fonts/ConsFontMono_B.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://scenes/menus/ButtonA.tscn" type="PackedScene" id=8]
 [ext_resource path="res://textures/button_typeA.png" type="Texture" id=9]
 [ext_resource path="res://fonts/AsciiNormal.tres" type="DynamicFont" id=10]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Shaker.cs" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 188.5, 10 )
@@ -82,35 +83,26 @@ tracks/2/keys = {
 "update": 1,
 "values": [ Vector2( 0.573, -0.819 ) ]
 }
-tracks/3/type = "method"
-tracks/3/path = NodePath("Character")
+tracks/3/type = "value"
+tracks/3/path = NodePath("Character:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Character:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ Vector2( 0, -39 ) ]
 }
 
-[sub_resource type="DynamicFont" id=1]
-size = 48
-font_data = ExtResource( 7 )
-
 [sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="DynamicFont" id=7]
+extra_spacing_top = -2
+extra_spacing_bottom = -8
+extra_spacing_char = -2
+font_data = ExtResource( 7 )
 
 [sub_resource type="StyleBoxTexture" id=3]
 texture = ExtResource( 9 )
@@ -150,25 +142,27 @@ custom_constants/margin_bottom = 6
 margin_left = 200.0
 margin_top = 6.0
 margin_right = 440.0
-margin_bottom = 356.0
+margin_bottom = 357.0
 
-[node name="Credit" type="Label" parent="Section_Title/Control"]
-modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
+[node name="Credit" type="RichTextLabel" parent="Section_Title/Control"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -45.0
+margin_left = -51.0
 margin_top = -53.0
-margin_right = 195.0
+margin_right = 189.0
 margin_bottom = 1.0
+bbcode_enabled = true
+bbcode_text = "[right][color=#943ca6]Made by [color=#df529e][url=https://magson.carrd.co/]Connor Magson[/url][/color]
+for [color=#f0624b][url=https://itch.io/jam/godot-wild-jam-45]GWJ #45[/url][/color]
+Theme: [color=#365a9b]Underground"
 text = "Made by Connor Magson
-for Godot Wild Jam #45
+for GWJ #45
 Theme: Underground"
-align = 2
 
 [node name="TitleAnimation" type="Node2D" parent="Section_Title/Control"]
-position = Vector2( -39, 37 )
+position = Vector2( -39, 70 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Section_Title/Control/TitleAnimation"]
 position = Vector2( 124, 164 )
@@ -219,60 +213,81 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 200.0
 margin_top = 6.0
 margin_right = 440.0
-margin_bottom = 356.0
+margin_bottom = 357.0
 rect_pivot_offset = Vector2( -60, -5 )
 
-[node name="Title" type="Label" parent="Section_Title/VBoxContainer"]
-margin_right = 240.0
-margin_bottom = 48.0
-size_flags_horizontal = 3
-custom_colors/font_color = Color( 0.87451, 0.321569, 0.619608, 1 )
-custom_fonts/font = SubResource( 1 )
-text = "Game Title"
-align = 1
-
 [node name="HSeparator" type="HSeparator" parent="Section_Title/VBoxContainer"]
-margin_top = 52.0
 margin_right = 240.0
-margin_bottom = 220.0
-custom_constants/separation = 168
+margin_bottom = 232.0
+custom_constants/separation = 232
 custom_styles/separator = SubResource( 2 )
 
 [node name="Play" parent="Section_Title/VBoxContainer" instance=ExtResource( 2 )]
 modulate = Color( 0.87451, 0.321569, 0.619608, 1 )
 margin_left = 0.0
-margin_top = 224.0
+margin_top = 236.0
 margin_right = 240.0
-margin_bottom = 257.0
+margin_bottom = 269.0
 text = "Play"
 
 [node name="HSeparator2" type="HSeparator" parent="Section_Title/VBoxContainer"]
-margin_top = 261.0
+margin_top = 273.0
 margin_right = 240.0
-margin_bottom = 276.0
-custom_constants/separation = 15
+margin_bottom = 281.0
+custom_constants/separation = 8
 custom_styles/separator = SubResource( 2 )
 
 [node name="Settings" parent="Section_Title/VBoxContainer" instance=ExtResource( 8 )]
 modulate = Color( 0.580392, 0.235294, 0.65098, 1 )
-margin_top = 280.0
+margin_top = 285.0
 margin_right = 240.0
-margin_bottom = 305.0
+margin_bottom = 310.0
 text = "Settings"
 
 [node name="HSeparator3" type="HSeparator" parent="Section_Title/VBoxContainer"]
-margin_top = 309.0
+margin_top = 314.0
 margin_right = 240.0
-margin_bottom = 321.0
-custom_constants/separation = 12
+margin_bottom = 322.0
+custom_constants/separation = 8
 custom_styles/separator = SubResource( 2 )
 
 [node name="Controls" parent="Section_Title/VBoxContainer" instance=ExtResource( 8 )]
 modulate = Color( 0.580392, 0.235294, 0.65098, 1 )
-margin_top = 325.0
+margin_top = 326.0
 margin_right = 240.0
-margin_bottom = 350.0
+margin_bottom = 351.0
 text = "Customize Controls"
+
+[node name="Node2D" type="Node2D" parent="Section_Title/VBoxContainer"]
+position = Vector2( 123, 0 )
+
+[node name="TitleShaker" type="Node2D" parent="Section_Title/VBoxContainer/Node2D"]
+
+[node name="Title" type="Label" parent="Section_Title/VBoxContainer/Node2D/TitleShaker"]
+margin_left = -209.0
+margin_top = -6.0
+margin_right = 231.0
+margin_bottom = 63.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_colors/font_color = Color( 0.87451, 0.321569, 0.619608, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "            _               _                _                 
+           | |             | |              | |                
+  ___ _   _| |__  ___ _   _| |__  _   _ _ __| |__   __ _ _ __  
+ / __| | | | '_ \\/ __| | | | '_ \\| | | | '__| '_ \\ / _` | '_ \\ 
+ \\__ \\ |_| | |_) \\__ \\ |_| | |_) | |_| | |  | |_) | (_| | | | |
+ |___/\\__,_|_.__/|___/\\__,_|_.__/ \\__,_|_|  |_.__/ \\__,_|_| |_|
+                                                               
+                                                               "
+align = 1
+
+[node name="Shaker" type="Node" parent="Section_Title/VBoxContainer/Node2D/TitleShaker"]
+script = ExtResource( 12 )
+targetNode2DPath = NodePath("..")
+maxRotation = 0.3
+maxOffset = Vector2( 20, 10 )
 
 [node name="Section_LevelSelect" type="MarginContainer" parent="."]
 visible = false
@@ -323,15 +338,15 @@ margin_bottom = 335.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 6
-custom_constants/margin_top = 6
+custom_constants/margin_top = 48
 custom_constants/margin_left = 6
-custom_constants/margin_bottom = 6
+custom_constants/margin_bottom = 100
 
 [node name="Panel" type="Panel" parent="Section_LevelSelect/VBoxContainer/MarginContainer"]
 margin_left = 6.0
-margin_top = 6.0
+margin_top = 48.0
 margin_right = 622.0
-margin_bottom = 292.0
+margin_bottom = 198.0
 custom_styles/panel = SubResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel"]
@@ -340,15 +355,15 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 4
-custom_constants/margin_top = 4
+custom_constants/margin_top = 12
 custom_constants/margin_left = 4
 custom_constants/margin_bottom = 4
 
 [node name="GridContainer" type="GridContainer" parent="Section_LevelSelect/VBoxContainer/MarginContainer/Panel/MarginContainer"]
 margin_left = 4.0
-margin_top = 4.0
+margin_top = 12.0
 margin_right = 612.0
-margin_bottom = 282.0
+margin_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 8

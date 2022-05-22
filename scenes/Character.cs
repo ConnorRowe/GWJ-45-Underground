@@ -156,7 +156,7 @@ namespace Underground
             }
             else
             {
-                if (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right"))
+                if (!InputLocked && (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")))
                 {
                     inputDir = Mathf.Lerp(inputDir, inputX, delta * 5f);
                     bodyParts.Rotation = 0f;

@@ -4,7 +4,7 @@ namespace Underground
 {
     public class StartLevel : BaseLevel
     {
-        private AnimationPlayer animationPlayer;
+        protected AnimationPlayer animationPlayer;
         public override void _Ready()
         {
             base._Ready();
@@ -13,6 +13,8 @@ namespace Underground
             GetNode("BedroomScene/BedroomDoor").Connect("body_entered", this, nameof(BodyEnteredSoPlayAnim), new Godot.Collections.Array() { "BedroomEnd" });
             GetNode("DownstairsScene/CrumblingFloor/CrumbleLabel/Area2D").Connect("body_entered", this, nameof(BodyEnteredSoPlayAnim), new Godot.Collections.Array() { "CrumbleFloor" });
             GetNode<Character>("Character").Camera2D = GetNode<Camera2D>("Camera2D");
+            var controlsInfo = GetNode<RichTextLabel>("BedroomScene/ControlsInfo");
+            controlsInfo.BbcodeText = MainMenu.ReplaceInputTags(controlsInfo.BbcodeText);
         }
 
         private void BodyEnteredSoPlayAnim(Node body, string animName)
