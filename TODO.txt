@@ -26,4 +26,5 @@ X itch page
 X shaker on buttons
 X charging enemy
 X level where you press certain buttons to make stairs out of doors
-* re-render animations with new logo
+X re-render animations with new logo
+* add esc as shortcut for back buttons

@@ -108,6 +108,13 @@ namespace Underground
                 rebindEvent = null;
                 GetTree().SetInputAsHandled();
             }
+            else if (evt is InputEventKey ek && !ek.Pressed && ek.Scancode == (int)KeyList.Escape)
+            {
+                if (GetNode<MarginContainer>("Section_Settings").Visible || GetNode<MarginContainer>("Section_LevelSelect").Visible)
+                    ShowTitle();
+                else if (GetNode<MarginContainer>("Section_Keybinds").Visible)
+                    CloseControls();
+            }
         }
 
         public override void _Process(float delta)
